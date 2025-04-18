@@ -134,6 +134,7 @@
             <div class="col-lg-8 mx-auto">
                 <h1 class="mb-4 fw-heading text-center">CrowdWork Widget Configurator</h1>
                 <p class="lead text-center mb-5">Customize your event display embed with enhanced filtering options</p>
+                <p class="text-center text-muted mb-4"><small>Version v2.1.7</small></p>
 
                 <form id="configurator-form">
                     <!-- Basic Configuration -->
@@ -144,7 +145,7 @@
                             <input type="text" class="form-control" id="theatre" placeholder="yourtheatre" required>
                             <div class="form-text">Your CrowdWork theatre subdomain</div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="eventType" class="form-label">Event Type</label>
                             <select class="form-select" id="eventType">
@@ -152,7 +153,7 @@
                                 <option value="classes">Classes</option>
                             </select>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="viewType" class="form-label">View Type</label>
                             <select class="form-select" id="viewType">
@@ -160,33 +161,33 @@
                                 <option value="cards">Cards</option>
                             </select>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="category" class="form-label">Category Filter (Optional)</label>
                             <input type="text" class="form-control" id="category" placeholder="e.g., comedy">
                         </div>
-                        
+
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="combinedView">
                             <label class="form-check-label" for="combinedView">
                                 Combined View (Show both classes and shows)
                             </label>
                         </div>
-                        
+
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="developmentMode">
                             <label class="form-check-label" for="developmentMode">
                                 Development Mode
                             </label>
                         </div>
-                        
+
                         </div>
                     </div>
-                    
+
                     <!-- Advanced Filtering -->
                     <div class="configurator-section">
                         <h3 class="mb-3">Advanced Filtering</h3>
-                        
+
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="showFilterControls">
                             <label class="form-check-label" for="showFilterControls">
@@ -194,7 +195,7 @@
                             </label>
                             <small class="form-text text-muted d-block">When enabled, lets your patrons filter events to find shows that match their interests or schedule</small>
                         </div>
-                        
+
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="showTags">
                             <label class="form-check-label" for="showTags">
@@ -202,7 +203,7 @@
                             </label>
                             <small class="form-text text-muted d-block">Shows event tags directly on cards to help visitors identify event types at a glance</small>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="includeTag" class="form-label">Include Tags</label>
                             <div class="input-group">
@@ -211,7 +212,7 @@
                             </div>
                             <div id="includeTags" class="tag-container mt-2"></div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="tagMatch" class="form-label">Tag Matching</label>
                             <select class="form-select" id="tagMatch">
@@ -219,7 +220,7 @@
                                 <option value="all">Match all tags (AND)</option>
                             </select>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="excludeTag" class="form-label">Exclude Tags</label>
                             <div class="input-group">
@@ -228,7 +229,7 @@
                             </div>
                             <div id="excludeTags" class="tag-container mt-2"></div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="dateRange" class="form-label">Date Range</label>
                             <div class="row">
@@ -240,7 +241,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="daysOfWeek" class="form-label">Days of Week</label>
                             <div class="d-flex flex-wrap gap-2" id="daysOfWeek">
@@ -274,7 +275,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="specialFilter" class="form-label">Special Filter</label>
                             <select class="form-select" id="specialFilter">
@@ -287,13 +288,13 @@
                                 <option value="next-30-days">Next 30 Days</option>
                             </select>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="limit" class="form-label">Event Limit</label>
                             <input type="number" class="form-control" id="limit" placeholder="Maximum number of events to display">
                         </div>
                     </div>
-                    
+
                     <div class="mb-4 text-center">
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary btn-lg">Generate Embed Code</button>
@@ -302,12 +303,12 @@
                         </div>
                     </div>
                 </form>
-                
+
                 <div id="codeOutputContainer" class="d-none">
                     <h3 class="mb-3">Your Embed Code</h3>
                     <div class="code-output" id="codeOutput"></div>
                     <button id="copyBtn" class="btn btn-success copy-btn">Copy Code</button>
-                    
+
                     <div class="alert alert-info">
                         <h5>Instructions:</h5>
                         <ol>
@@ -317,7 +318,7 @@
                         </ol>
                     </div>
                 </div>
-                
+
                 <div id="previewContainer" class="d-none">
                     <h3 class="mb-3">Live Preview</h3>
                     <div class="alert alert-warning mb-3">
@@ -333,7 +334,7 @@
                 </div>
             </div>
         </div>
-        
+
         <footer class="text-center">
             <p>⚠️ <strong>NOTICE:</strong> This configurator is provided as-is, without warranty of any kind, for testing purposes only.</p>
             <p>It is <strong>NOT</strong> an official CrowdWork product and is not affiliated with, endorsed by, or connected to CrowdWork in any way.</p>
@@ -347,7 +348,7 @@
             const includeTags = [];
             const excludeTags = [];
             let currentEmbedCode = '';
-            
+
             // Tag management
             document.getElementById('addIncludeTag').addEventListener('click', function() {
                 const tagInput = document.getElementById('includeTag');
@@ -358,7 +359,7 @@
                     tagInput.value = '';
                 }
             });
-            
+
             document.getElementById('addExcludeTag').addEventListener('click', function() {
                 const tagInput = document.getElementById('excludeTag');
                 const tag = tagInput.value.trim();
@@ -368,24 +369,24 @@
                     tagInput.value = '';
                 }
             });
-            
+
             function renderTags(containerId, tags) {
                 const container = document.getElementById(containerId);
                 container.innerHTML = '';
-                
+
                 tags.forEach((tag, index) => {
                     const tagElement = document.createElement('span');
                     tagElement.className = 'tag-badge';
                     tagElement.innerHTML = `${tag} <span class="remove-tag" data-container="${containerId}" data-index="${index}">×</span>`;
                     container.appendChild(tagElement);
                 });
-                
+
                 // Add event listeners for removing tags
                 document.querySelectorAll('.remove-tag').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const container = this.getAttribute('data-container');
                         const index = parseInt(this.getAttribute('data-index'));
-                        
+
                         if (container === 'includeTags') {
                             includeTags.splice(index, 1);
                             renderTags('includeTags', includeTags);
@@ -396,7 +397,7 @@
                     });
                 });
             }
-            
+
             // Helper function to generate embed code
             function generateEmbedCode() {
                 // Basic config
@@ -408,24 +409,24 @@
                 const devMode = document.getElementById('developmentMode').checked;
                 const showFilterControls = document.getElementById('showFilterControls').checked;
                 const showTags = document.getElementById('showTags').checked;
-                
+
                 // Advanced filters
                 const tagMatch = document.getElementById('tagMatch').value;
                 const startDate = document.getElementById('startDate').value;
                 const endDate = document.getElementById('endDate').value;
                 const specialFilter = document.getElementById('specialFilter').value;
                 const limit = document.getElementById('limit').value;
-                
+
                 // Days of week
                 const daysOfWeek = [];
                 document.querySelectorAll('#daysOfWeek input[name="day-of-week"]:checked').forEach(checkbox => {
                     daysOfWeek.push(checkbox.value);
                 });
-                
+
                 // Build embed code
                 let embedCode = `<!-- CrowdWork Event Display Embed with Enhanced Filtering (BETA) -->\n`;
                 embedCode += `<script id="fw_script" src="https://crowdwork.com/embed.js?v=BETA-2025-04" `;
-                
+
                 // Add basic attributes
                 embedCode += `data-theatre="${theatre}" `;
                 if (eventType !== 'shows') embedCode += `data-type="${eventType}" `;
@@ -434,62 +435,62 @@
                 if (devMode) embedCode += `data-development="true" `;
                 if (!showFilterControls) embedCode += `data-show-filters="false" `;
                 if (showTags) embedCode += `data-show-tags="true" `;
-                
+
                 // Add filter attributes
                 if (includeTags.length > 0) embedCode += `data-include-tags="${includeTags.join(',')}" `;
                 if (excludeTags.length > 0) embedCode += `data-exclude-tags="${excludeTags.join(',')}" `;
                 if (tagMatch !== 'any') embedCode += `data-tag-match="${tagMatch}" `;
-                
+
                 // Date range - handle if only one date is provided
                 if (startDate || endDate) {
                     const startVal = startDate || '';
                     const endVal = endDate || '';
                     embedCode += `data-date-range="${startVal},${endVal}" `;
                 }
-                
+
                 // Days of week
                 if (daysOfWeek.length > 0) {
                     embedCode += `data-days-of-week="${daysOfWeek.join(',')}" `;
                 }
-                
+
                 // Special filter
                 if (specialFilter) embedCode += `data-special-filter="${specialFilter}" `;
-                
+
                 // Limit
                 if (limit) embedCode += `data-limit="${limit}" `;
-                
+
                 // Combined view
                 if (combinedView) embedCode += `data-combined-view="true" `;
-                
+
                 embedCode += `><\/script>\n`;
-                
+
                 // Add enhancer script with same query string as the embed script
                 embedCode += `<script src="https://brandonjp.github.io/cw-embedjs-clientside-enhancer/embed-enhancer.js?v=BETA-2025-04"><\/script>\n`;
-                
+
                 // Add container div
                 embedCode += `<div id="fourth_wall"></div>`;
-                
+
                 return embedCode;
             }
-            
+
             // Form submission
             document.getElementById('configurator-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
                 // Generate embed code
                 currentEmbedCode = generateEmbedCode();
-                
+
                 // Display the code
                 document.getElementById('codeOutput').textContent = currentEmbedCode;
                 document.getElementById('codeOutputContainer').classList.remove('d-none');
                 document.getElementById('previewContainer').classList.add('d-none');
-                
+
                 // Scroll to the output
                 document.getElementById('codeOutputContainer').scrollIntoView({ behavior: 'smooth' });
-                
+
                 return false; // Prevent form submission
             });
-            
+
             // Preview button
             document.getElementById('previewBtn').addEventListener('click', function() {
                 // Validate form
@@ -498,19 +499,19 @@
                     document.getElementById('theatre').focus();
                     return;
                 }
-                
+
                 // Generate the code for preview
                 currentEmbedCode = generateEmbedCode();
-                
+
                 // Hide code output, show preview
                 document.getElementById('codeOutputContainer').classList.add('d-none');
                 document.getElementById('previewContainer').classList.remove('d-none');
-                
+
                 // Clear previous preview content and recreate container
                 const previewFrame = document.querySelector('.preview-frame');
                 previewFrame.innerHTML = '<div id="previewContent" style="position: relative;"></div>';
                 const previewContent = document.getElementById('previewContent');
-                
+
                 // Show loading indicator
                 const loadingOverlay = document.createElement('div');
                 loadingOverlay.className = 'preview-loading';
@@ -533,15 +534,15 @@
                     <p>Loading preview, please wait...</p>
                 `;
                 previewContent.appendChild(loadingOverlay);
-                
+
                 // Add fourth_wall container
                 const container = document.createElement('div');
                 container.id = 'fourth_wall';
                 previewContent.appendChild(container);
-                
+
                 // Scroll to the preview
                 document.getElementById('previewContainer').scrollIntoView({ behavior: 'smooth' });
-                
+
                 // Inject the necessary scripts
                 const theatre = document.getElementById('theatre').value;
                 const eventType = document.getElementById('eventType').value;
@@ -551,13 +552,13 @@
                 const devMode = document.getElementById('developmentMode').checked;
                 const showFilterControls = document.getElementById('showFilterControls').checked;
                 const showTags = document.getElementById('showTags').checked;
-                
+
                 // Create the main script element
                 const script = document.createElement('script');
                 script.id = 'fw_script';
                 script.src = 'https://crowdwork.com/embed.js?v=BETA-2025-04';
                 script.setAttribute('data-theatre', theatre);
-                
+
                 if (eventType !== 'shows') script.setAttribute('data-type', eventType);
                 if (viewType !== 'calendar') script.setAttribute('data-view', viewType);
                 if (category) script.setAttribute('data-category', category);
@@ -566,14 +567,14 @@
                 script.setAttribute('data-show-filters', showFilterControls ? 'true' : 'false');
                 // Set show-tags attribute if enabled
                 if (showTags) script.setAttribute('data-show-tags', 'true');
-                
+
                 // Add advanced filter attributes
                 if (includeTags.length > 0) script.setAttribute('data-include-tags', includeTags.join(','));
                 if (excludeTags.length > 0) script.setAttribute('data-exclude-tags', excludeTags.join(','));
                 if (document.getElementById('tagMatch').value !== 'any') {
                     script.setAttribute('data-tag-match', document.getElementById('tagMatch').value);
                 }
-                
+
                 // Date range - handle if only one date is provided
                 const startDateVal = document.getElementById('startDate').value;
                 const endDateVal = document.getElementById('endDate').value;
@@ -582,38 +583,38 @@
                     const endVal = endDateVal || '';
                     script.setAttribute('data-date-range', `${startVal},${endVal}`);
                 }
-                
+
                 // Days of week
                 const daysOfWeek = [];
                 document.querySelectorAll('#daysOfWeek input[name="day-of-week"]:checked').forEach(checkbox => {
                     daysOfWeek.push(checkbox.value);
                 });
-                
+
                 if (daysOfWeek.length > 0) {
                     script.setAttribute('data-days-of-week', daysOfWeek.join(','));
                 }
-                
+
                 // Special filter
                 if (document.getElementById('specialFilter').value) {
                     script.setAttribute('data-special-filter', document.getElementById('specialFilter').value);
                 }
-                
+
                 // Limit
                 if (document.getElementById('limit').value) {
                     script.setAttribute('data-limit', document.getElementById('limit').value);
                 }
-                
+
                 // Combined view
                 if (combinedView) script.setAttribute('data-combined-view', 'true');
-                
+
                 // Add script to page
                 previewContent.appendChild(script);
-                
+
                 // Add enhancer script with same query string as the embed script
                 const enhancerScript = document.createElement('script');
                 enhancerScript.src = 'https://brandonjp.github.io/cw-embedjs-clientside-enhancer/embed-enhancer.js?v=BETA-2025-04';
                 previewContent.appendChild(enhancerScript);
-                
+
                 // Force remove the spinner after a brief delay - always shows content
                 setTimeout(() => {
                     if (previewContent.contains(loadingOverlay)) {
@@ -621,7 +622,7 @@
                     }
                 }, 2500);
             });
-            
+
             // Reset form button
             document.getElementById('resetBtn').addEventListener('click', function() {
                 if (confirm('Are you sure you want to reset all form fields?')) {
@@ -634,13 +635,13 @@
                     document.getElementById('previewContainer').classList.add('d-none');
                 }
             });
-            
+
             // Edit configuration button
             document.getElementById('editConfigBtn').addEventListener('click', function() {
                 document.getElementById('previewContainer').classList.add('d-none');
                 document.getElementById('configurator-form').scrollIntoView({ behavior: 'smooth' });
             });
-            
+
             // Get embed code button
             document.getElementById('getCodeBtn').addEventListener('click', function() {
                 document.getElementById('codeOutput').textContent = currentEmbedCode;
@@ -648,7 +649,7 @@
                 document.getElementById('previewContainer').classList.add('d-none');
                 document.getElementById('codeOutputContainer').scrollIntoView({ behavior: 'smooth' });
             });
-            
+
             // Copy button
             document.getElementById('copyBtn').addEventListener('click', function() {
                 const codeOutput = document.getElementById('codeOutput');
@@ -658,7 +659,7 @@
                 window.getSelection().addRange(range);
                 document.execCommand('copy');
                 window.getSelection().removeAllRanges();
-                
+
                 // Change button text temporarily
                 const btn = this;
                 const originalText = btn.textContent;
@@ -667,7 +668,7 @@
                     btn.textContent = originalText;
                 }, 2000);
             });
-            
+
             // Add tooltips to form fields
             const tooltips = {
                 'theatre': 'Your CrowdWork subdomain (e.g., "yourtheatre" for yourtheatre.crowdwork.com)',
@@ -685,7 +686,7 @@
                 'specialFilter': 'Predefined date filters for common time periods',
                 'limit': 'Maximum number of events to display'
             };
-            
+
             // Add tooltip indicators to form labels
             for (const [id, tooltip] of Object.entries(tooltips)) {
                 const label = document.querySelector(`label[for="${id}"]`);
