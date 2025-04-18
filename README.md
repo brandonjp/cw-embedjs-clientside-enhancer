@@ -1,24 +1,34 @@
 # Enhanced Event Display Embed Scripts
 
-This project provides two JavaScript solutions that enhance event display embed functionality with advanced filtering capabilities.
+This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 
 ## Overview
 
-1. **Complete Rewrite (`embed-new.js`)**: A modernized version of the original embed script with modular code and advanced filtering built-in.
-2. **Original Script (`embed-orig.js`)**: The original embed script for reference.
+1. **Enhancer Script (`embed-enhancer.js`)**: Works alongside the original embed script to add advanced filtering
+2. **Configurator Tool**: A web-based tool to help build custom embed codes with the desired options
+3. **Original Script Reference** (`embed-orig.js`): The original embed script for reference
 
-The new implementation enables client-side filtering and display options without changing the existing API or data source.
+The enhancer enables client-side filtering and display options without changing the existing API or data source.
 
 ## Installation
 
-### Using the Enhanced Script
+### Using the Enhancer Script
 
-Replace your existing embed script with the new version:
+Include the original embed script followed by the enhancer script:
 
 ```html
-<script id="fw_script" src="path/to/embed-new.js" data-theatre="your-theatre"></script>
+<script id="fw_script" src="https://crowdwork.com/embed.js?v=BETA-2025-04" data-theatre="your-theatre"></script>
+<script src="path/to/embed-enhancer.js"></script>
 <div id="fourth_wall"></div>
 ```
+
+### Using the Configurator
+
+For an easier setup, use the configurator tool to generate your embed code:
+
+1. Open the configurator tool at `/configurator/index.html`
+2. Configure your desired options
+3. Copy the generated code to your website
 
 ## Configuration Options
 

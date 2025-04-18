@@ -1,5 +1,5 @@
 /**
- * CrowdWork Event Display Embed Script Enhancer
+ * CrowdWork Event Display Embed Script Enhancer v2.1.0
  * 
  * This script enhances the original embed.js with advanced filtering capabilities
  * without modifying the original script. It adds client-side filtering and display options
@@ -9,8 +9,8 @@
  * 1. First include the original embed.js with your desired configuration
  * 2. Then include this script right after it
  * 
- * <script id="fw_script" src="http://lvh.me:3000/embed.js" data-theatre="one"></script>
- * <script src="embed-enhancer.js"></script>
+ * <script id="fw_script" src="https://crowdwork.com/embed.js?v=BETA-2025-04" data-theatre="your-theatre"></script>
+ * <script src="https://path-to/embed-enhancer.js"></script>
  * 
  * Additional data attributes for enhanced filtering:
  * - data-include-tags: Comma-separated list of tags to include
@@ -326,6 +326,74 @@
         padding: 0;
         display: flex;
         align-items: center;
+      }
+      
+      /* New loading overlay styles */
+      .fw-enhancer-loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 1000;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      
+      .fw-enhancer-loading-overlay .spinner {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+      }
+      
+      .fw-enhancer-loading-overlay .spinner:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 6px solid #4a6cf7;
+        border-color: #4a6cf7 transparent #4a6cf7 transparent;
+        animation: fw-enhancer-spinner 1.2s linear infinite;
+      }
+      
+      .fw-enhancer-loading-overlay .message {
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+      }
+      
+      @keyframes fw-enhancer-spinner {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      
+      .fw-enhancer-loading {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      
+      .fw-enhancer-loading .spinner {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border: 8px solid #4a6cf7;
+        border-radius: 50%;
+        border-color: #4a6cf7 transparent transparent transparent;
+        animation: fw-enhancer-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
       }
     `;
     document.head.appendChild(styleEl);
@@ -1409,6 +1477,32 @@
     });
   }
   
+  // Create a loading overlay that covers the entire embed element
+  function createLoadingOverlay(embedElement) {
+    // Create overlay container
+    const overlay = document.createElement('div');
+    overlay.classList.add('fw-enhancer-loading-overlay');
+    
+    // Add spinner
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
+    overlay.appendChild(spinner);
+    
+    // Add loading message
+    const message = document.createElement('div');
+    message.classList.add('message');
+    message.textContent = 'Loading events...';
+    overlay.appendChild(message);
+    
+    // Position the overlay relative to the embed element
+    embedElement.style.position = 'relative';
+    
+    // Add overlay to the embed element
+    embedElement.appendChild(overlay);
+    
+    return overlay;
+  }
+  
   // Apply filters to the original embed elements
   function applyFilteringToOriginalElements(config) {
     // Find the embed element
@@ -1420,11 +1514,8 @@
     
     // If we don't have data yet, fetch it
     if (cachedData.shows.length === 0 || (config.combinedView && cachedData.classes.length === 0)) {
-      // Show a loading spinner
-      const loadingEl = document.createElement('div');
-      loadingEl.classList.add('fw-enhancer-loading');
-      loadingEl.innerHTML = '<div class="spinner"></div>';
-      embedElement.appendChild(loadingEl);
+      // Show a loading overlay
+      const loadingOverlay = createLoadingOverlay(embedElement);
       
       // Fetch data
       const fetchPromises = [];
@@ -1447,10 +1538,9 @@
       
       // When all data is fetched, apply filters
       Promise.all(fetchPromises).then(() => {
-        // Remove loading spinner
-        const loadingEl = document.querySelector('.fw-enhancer-loading');
-        if (loadingEl) {
-          loadingEl.remove();
+        // Remove loading overlay
+        if (loadingOverlay) {
+          loadingOverlay.remove();
         }
         
         // Apply filters based on view type
@@ -1458,11 +1548,16 @@
       }).catch(error => {
         console.error('Enhancer Error: Failed to fetch event data:', error);
         
-        // Remove loading spinner on error
-        const loadingEl = document.querySelector('.fw-enhancer-loading');
-        if (loadingEl) {
-          loadingEl.remove();
+        // Remove loading overlay on error
+        if (loadingOverlay) {
+          loadingOverlay.remove();
         }
+        
+        // Display error message
+        const errorMessage = document.createElement('div');
+        errorMessage.classList.add('fw-no-events');
+        errorMessage.innerHTML = 'Error loading events. Please try again later.';
+        embedElement.appendChild(errorMessage);
       });
     } else {
       // We already have data, just apply filters
@@ -1517,10 +1612,14 @@
       if (embedElement) {
         clearInterval(checkForEmbed);
         
+        // Show loading overlay immediately
+        const loadingOverlay = createLoadingOverlay(embedElement);
+        
         // Set up filter UI
         const populateTagFilters = setupFilterUI(embedElement, config);
         
         // Apply filtering based on initial configuration
+        // Note: This will handle removing the loading overlay when done
         applyFilteringToOriginalElements(config);
         
         // Initialize active filter badges
@@ -1550,7 +1649,10 @@
           });
           
           if (shouldReapply) {
-            applyFilteringToOriginalElements(config);
+            // Only reapply if there's no loading overlay already
+            if (!document.querySelector('.fw-enhancer-loading-overlay')) {
+              applyFilteringToOriginalElements(config);
+            }
           }
         });
         

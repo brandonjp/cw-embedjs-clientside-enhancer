@@ -1,6 +1,28 @@
 # Changelog
 
-## Version 2.0.0 (2025-04-18)
+## Version 2.1.0 (2025-04-18)
+
+### Major Improvements
+- Added enhanced loading overlay with spinner to improve user experience
+- Created configurator tool to easily build custom embed code
+- Simplified project by focusing on the enhancer add-on script
+- Better error handling for failed API requests
+
+### Enhancements
+- Improved loading state management to prevent flickering
+- Added clear error messages when data fetching fails
+- Updated API endpoint URLs to use appropriate versioning
+- Better UI consistency in filter controls and badges
+- Enhanced documentation with clearer usage examples
+
+### Code Improvements
+- Removed unneeded combined script version to reduce maintenance
+- Better error state handling with helpful user messages
+- Improved positioning and styling of loading indicators
+- Updated inline documentation and code comments
+- Added version number to script header
+
+## Version 2.0.0 (2025-04-17)
 
 ### Major Improvements
 - Complete refactoring into modular, maintainable code structure with proper namespacing

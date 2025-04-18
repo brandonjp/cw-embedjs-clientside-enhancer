@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unofficial CrowdWork Widget Configurator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://crowdwork.com/assets/application-21326dfd8430e562d7232ea5e9f9a11e04272134a55150a4ee1bb626444a0005.css">
+    <link rel="stylesheet" href="https://crowdwork.com/assets/home-6e1d70d5bb631f56e6419087cb1971e60fdb94cf429144c189e869b47dc430db.css">
+    <style>
+        body {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .header-disclaimer {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.25rem;
+            text-align: center;
+        }
+        .configurator-section {
+            background-color: #f9f9f9;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        .code-output {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        .copy-btn {
+            margin-bottom: 1.5rem;
+        }
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .tag-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #e9ecef;
+            padding: 0.35rem 0.65rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+        }
+        .tag-badge .remove-tag {
+            margin-left: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .preview-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+        }
+        .fw-heading {
+            color: #4a6cf7;
+        }
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #dee2e6;
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-disclaimer">
+            <h5 class="mb-0">⚠️ UNOFFICIAL TOOL - NOT AFFILIATED WITH CROWDWORK</h5>
+            <p class="mb-0">This is a beta, experimental tool for testing purposes only.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="mb-4 fw-heading text-center">CrowdWork Widget Configurator</h1>
+                <p class="lead text-center mb-5">Customize your event display embed with enhanced filtering options</p>
+
+                <form id="configurator-form">
+                    <!-- Basic Configuration -->
+                    <div class="configurator-section">
+                        <h3 class="mb-3">Basic Configuration</h3>
+                        <div class="mb-3">
+                            <label for="theatre" class="form-label">Theatre Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="theatre" placeholder="yourtheatre" required>
+                            <div class="form-text">Your CrowdWork theatre subdomain</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="eventType" class="form-label">Event Type</label>
+                            <select class="form-select" id="eventType">
+                                <option value="shows" selected>Shows</option>
+                                <option value="classes">Classes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="viewType" class="form-label">View Type</label>
+                            <select class="form-select" id="viewType">
+                                <option value="calendar" selected>Calendar</option>
+                                <option value="cards">Cards</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category Filter (Optional)</label>
+                            <input type="text" class="form-control" id="category" placeholder="e.g., comedy">
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="combinedView">
+                            <label class="form-check-label" for="combinedView">
+                                Combined View (Show both classes and shows)
+                            </label>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="developmentMode">
+                            <label class="form-check-label" for="developmentMode">
+                                Development Mode
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Filtering -->
+                    <div class="configurator-section">
+                        <h3 class="mb-3">Advanced Filtering</h3>
+                        
+                        <div class="mb-3">
+                            <label for="includeTag" class="form-label">Include Tags</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="includeTag" placeholder="Add a tag">
+                                <button class="btn btn-outline-secondary" type="button" id="addIncludeTag">Add</button>
+                            </div>
+                            <div id="includeTags" class="tag-container mt-2"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="tagMatch" class="form-label">Tag Matching</label>
+                            <select class="form-select" id="tagMatch">
+                                <option value="any" selected>Match any tag (OR)</option>
+                                <option value="all">Match all tags (AND)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="excludeTag" class="form-label">Exclude Tags</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="excludeTag" placeholder="Add a tag to exclude">
+                                <button class="btn btn-outline-secondary" type="button" id="addExcludeTag">Add</button>
+                            </div>
+                            <div id="excludeTags" class="tag-container mt-2"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="dateRange" class="form-label">Date Range</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="date" class="form-control" id="startDate" placeholder="Start date">
+                                </div>
+                                <div class="col-6">
+                                    <input type="date" class="form-control" id="endDate" placeholder="End date">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="daysOfWeek" class="form-label">Days of Week</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="0" id="sunday">
+                                    <label class="form-check-label" for="sunday">Sunday</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" id="monday">
+                                    <label class="form-check-label" for="monday">Monday</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="2" id="tuesday">
+                                    <label class="form-check-label" for="tuesday">Tuesday</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="3" id="wednesday">
+                                    <label class="form-check-label" for="wednesday">Wednesday</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="4" id="thursday">
+                                    <label class="form-check-label" for="thursday">Thursday</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="5" id="friday">
+                                    <label class="form-check-label" for="friday">Friday</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="6" id="saturday">
+                                    <label class="form-check-label" for="saturday">Saturday</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="specialFilter" class="form-label">Special Filter</label>
+                            <select class="form-select" id="specialFilter">
+                                <option value="" selected>None</option>
+                                <option value="this-week">This Week</option>
+                                <option value="next-week">Next Week</option>
+                                <option value="this-weekend">This Weekend</option>
+                                <option value="next-weekend">Next Weekend</option>
+                                <option value="next-7-days">Next 7 Days</option>
+                                <option value="next-30-days">Next 30 Days</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="limit" class="form-label">Event Limit</label>
+                            <input type="number" class="form-control" id="limit" placeholder="Maximum number of events to display">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate Embed Code</button>
+                    </div>
+                </form>
+                
+                <div id="codeOutputContainer" class="d-none">
+                    <h3 class="mb-3">Your Embed Code</h3>
+                    <div class="code-output" id="codeOutput"></div>
+                    <button id="copyBtn" class="btn btn-success copy-btn">Copy Code</button>
+                    
+                    <div class="alert alert-info">
+                        <h5>Instructions:</h5>
+                        <ol>
+                            <li>Copy the code above</li>
+                            <li>Paste it into your website's HTML where you want the event display to appear</li>
+                            <li>Make sure to include the container div (fourth_wall) if it's not already on your page</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="text-center">
+            <p>⚠️ <strong>NOTICE:</strong> This configurator is provided as-is, without warranty of any kind, for testing purposes only.</p>
+            <p>It is <strong>NOT</strong> an official CrowdWork product and is not affiliated with, endorsed by, or connected to CrowdWork in any way.</p>
+            <p>The enhanced script may cause increased API usage and load times. Use at your own discretion.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const includeTags = [];
+            const excludeTags = [];
+            
+            // Tag management
+            document.getElementById('addIncludeTag').addEventListener('click', function() {
+                const tagInput = document.getElementById('includeTag');
+                const tag = tagInput.value.trim();
+                if (tag && !includeTags.includes(tag)) {
+                    includeTags.push(tag);
+                    renderTags('includeTags', includeTags);
+                    tagInput.value = '';
+                }
+            });
+            
+            document.getElementById('addExcludeTag').addEventListener('click', function() {
+                const tagInput = document.getElementById('excludeTag');
+                const tag = tagInput.value.trim();
+                if (tag && !excludeTags.includes(tag)) {
+                    excludeTags.push(tag);
+                    renderTags('excludeTags', excludeTags);
+                    tagInput.value = '';
+                }
+            });
+            
+            function renderTags(containerId, tags) {
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+                
+                tags.forEach((tag, index) => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag-badge';
+                    tagElement.innerHTML = `${tag} <span class="remove-tag" data-container="${containerId}" data-index="${index}">×</span>`;
+                    container.appendChild(tagElement);
+                });
+                
+                // Add event listeners for removing tags
+                document.querySelectorAll('.remove-tag').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const container = this.getAttribute('data-container');
+                        const index = parseInt(this.getAttribute('data-index'));
+                        
+                        if (container === 'includeTags') {
+                            includeTags.splice(index, 1);
+                            renderTags('includeTags', includeTags);
+                        } else {
+                            excludeTags.splice(index, 1);
+                            renderTags('excludeTags', excludeTags);
+                        }
+                    });
+                });
+            }
+            
+            // Form submission
+            document.getElementById('configurator-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic config
+                const theatre = document.getElementById('theatre').value;
+                const eventType = document.getElementById('eventType').value;
+                const viewType = document.getElementById('viewType').value;
+                const category = document.getElementById('category').value;
+                const combinedView = document.getElementById('combinedView').checked;
+                const devMode = document.getElementById('developmentMode').checked;
+                
+                // Advanced filters
+                const tagMatch = document.getElementById('tagMatch').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                const specialFilter = document.getElementById('specialFilter').value;
+                const limit = document.getElementById('limit').value;
+                
+                // Days of week
+                const daysOfWeek = [];
+                document.querySelectorAll('#daysOfWeek input[type="checkbox"]:checked').forEach(checkbox => {
+                    daysOfWeek.push(checkbox.value);
+                });
+                
+                // Build embed code
+                let embedCode = `<!-- CrowdWork Event Display Embed with Enhanced Filtering (BETA) -->\n`;
+                embedCode += `<script id="fw_script" src="https://crowdwork.com/embed.js?v=BETA-2025-04" `;
+                
+                // Add basic attributes
+                embedCode += `data-theatre="${theatre}" `;
+                if (eventType !== 'shows') embedCode += `data-type="${eventType}" `;
+                if (viewType !== 'calendar') embedCode += `data-view="${viewType}" `;
+                if (category) embedCode += `data-category="${category}" `;
+                if (devMode) embedCode += `data-development="true" `;
+                
+                // Add filter attributes
+                if (includeTags.length > 0) embedCode += `data-include-tags="${includeTags.join(',')}" `;
+                if (excludeTags.length > 0) embedCode += `data-exclude-tags="${excludeTags.join(',')}" `;
+                if (tagMatch !== 'any') embedCode += `data-tag-match="${tagMatch}" `;
+                
+                // Date range
+                if (startDate && endDate) {
+                    embedCode += `data-date-range="${startDate},${endDate}" `;
+                }
+                
+                // Days of week
+                const dowCheckboxes = document.querySelectorAll('[id^="day"]:checked');
+                const selectedDays = Array.from(dowCheckboxes).map(cb => cb.value);
+                if (selectedDays.length > 0) {
+                    embedCode += `data-days-of-week="${selectedDays.join(',')}" `;
+                }
+                
+                // Special filter
+                if (specialFilter) embedCode += `data-special-filter="${specialFilter}" `;
+                
+                // Limit
+                if (limit) embedCode += `data-limit="${limit}" `;
+                
+                // Combined view
+                if (combinedView) embedCode += `data-combined-view="true" `;
+                
+                embedCode += `></script>\n`;
+                
+                // Add enhancer script
+                embedCode += `<script src="https://path-to/embed-enhancer.js"></script>\n`;
+                
+                // Add container div
+                embedCode += `<div id="fourth_wall"></div>`;
+                
+                // Display the code
+                document.getElementById('codeOutput').textContent = embedCode;
+                document.getElementById('codeOutputContainer').classList.remove('d-none');
+                
+                // Scroll to the output
+                document.getElementById('codeOutputContainer').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Copy button
+            document.getElementById('copyBtn').addEventListener('click', function() {
+                const codeOutput = document.getElementById('codeOutput');
+                const range = document.createRange();
+                range.selectNode(codeOutput);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                
+                // Change button text temporarily
+                const btn = this;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
