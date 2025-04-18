@@ -1,4 +1,4 @@
-# Enhanced Event Display Embed Scripts (v2.1.4)
+# Enhanced Event Display Embed Scripts (v2.1.5)
 
 This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 
@@ -54,12 +54,12 @@ The script supports the following configuration options via data attributes:
 | `data-start-dow` | number | First day of week (0=Sunday, 1=Monday, etc.) | 1 (Monday) |
 | `data-local` | boolean | Whether to open links in same window | false |
 | `data-development` | boolean | Enable development mode | false |
-| `data-show-filters` | boolean | Show or hide the filter button for visitors | true |
 
 ### Advanced Filtering Options (New)
 
 | Attribute | Type | Description | Default |
 |-----------|------|-------------|---------|
+| `data-show-filters` | boolean | Show or hide the filter button for visitors | false |
 | `data-include-tags` | string | Comma-separated list of tags to include | None |
 | `data-exclude-tags` | string | Comma-separated list of tags to exclude | None |
 | `data-tag-match` | string | Tag matching strategy: "any" or "all" | "any" |
@@ -72,7 +72,26 @@ The script supports the following configuration options via data attributes:
 
 ## URL Parameter Support
 
-The script supports the following URL parameters for sharing filtered views:
+The enhancer script automatically detects and applies filters based on URL parameters. This powerful feature allows you to:
+
+1. **Share filtered views** - Create links to specific filtered views of your events (e.g., just weekend shows)
+2. **Create targeted landing pages** - Build category-specific pages without maintaining separate embeds
+3. **Support marketing campaigns** - Generate direct links to specific event types for promotions
+
+### How It Works
+
+1. When someone visits a page with your embed, the enhancer checks the URL for filter parameters
+2. If parameters are found, the enhancer automatically applies those filters to the event display
+3. The visitor sees only the events matching those filters, without having to manually filter
+
+### Example Use Cases
+
+- **"Weekend Events" page**: `https://yoursite.com/events?days-of-week=5,6`
+- **"Comedy Shows" page**: `https://yoursite.com/events?include-tags=comedy`
+- **"Upcoming Shows" email link**: `https://yoursite.com/events?special-filter=next-7-days`
+- **"Kids Shows" social media link**: `https://yoursite.com/events?exclude-tags=18+,mature`
+
+### Supported Parameters
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
@@ -84,6 +103,9 @@ The script supports the following URL parameters for sharing filtered views:
 | `days-of-week` | Comma-separated days to include (0-6) | `?days-of-week=5,6` (weekends) |
 | `limit` | Maximum number of events to show | `?limit=5` |
 | `special-filter` | Predefined filter | `?special-filter=next-weekend` |
+
+You can combine multiple parameters for more specific filtering. For example:
+`https://yoursite.com/events?include-tags=comedy&limit=5&special-filter=next-weekend`
 
 ## Special Filters
 

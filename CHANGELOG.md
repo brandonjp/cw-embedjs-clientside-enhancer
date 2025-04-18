@@ -1,5 +1,28 @@
 # Changelog
 
+## Version 2.1.5 (2025-04-18)
+
+### Critical Bug Fixes
+- Completely rewrote embed element detection system:
+  - Added multiple fallback strategies to find the embed container
+  - Fixed persistent loading spinner that wouldn't disappear
+  - Added forced spinner removal after timeout as safety measure
+  - Improved console logging for better debugging
+
+### User Interface Improvements
+- Reorganized configurator interface:
+  - Moved "Show Filter Controls" to Advanced section where it belongs
+  - Changed default to OFF to align with theater preferences
+  - Improved description for clarity: "lets your patrons filter events to find shows"
+  - Fixed issues with filter controls still showing when disabled
+
+### Documentation Enhancements
+- Expanded URL parameter documentation:
+  - Added detailed explanation of URL parameter functionality 
+  - Added real-world use cases and examples
+  - Added examples of combining multiple parameters
+  - Improved explanation of how parameters work with the embed
+
 ## Version 2.1.4 (2025-04-18)
 
 ### User Experience Improvements

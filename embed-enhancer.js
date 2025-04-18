@@ -1,5 +1,5 @@
 /**
- * CrowdWork Event Display Embed Script Enhancer v2.1.3
+ * CrowdWork Event Display Embed Script Enhancer v2.1.5
  * 
  * This script enhances the original embed.js with advanced filtering capabilities
  * without modifying the original script. It adds client-side filtering and display options
@@ -425,7 +425,7 @@
       specialFilter: originalScript.getAttribute("data-special-filter"),
       limit: parseInt(originalScript.getAttribute("data-limit") || "0", 10),
       combinedView: originalScript.getAttribute("data-combined-view") === "true",
-      showFilters: originalScript.getAttribute("data-show-filters") !== "false" // default to true
+      showFilters: originalScript.getAttribute("data-show-filters") === "true" // default to false
     };
   }
   
@@ -1620,69 +1620,103 @@
     // Initialize from URL parameters
     initializeFromURLParams();
     
-    // Find the embed element - need to wait for the original script to create it
-    const checkForEmbed = setInterval(() => {
-      const embedElement = document.querySelector('.fw-embed');
+    // Better detection for embed element
+    let embedElement = null;
+    let checkAttempts = 0;
+    const maxAttempts = 20;
+    
+    function attemptToFindEmbed() {
+      // Try multiple selectors to find the embed
+      embedElement = document.querySelector('.fw-embed') || 
+                    document.querySelector('.fw-calendar') || 
+                    document.querySelector('.fw-cards') ||
+                    document.querySelector('#fourth_wall > div');
+      
+      checkAttempts++;
+      
       if (embedElement) {
-        clearInterval(checkForEmbed);
+        // Success! We found the embed element
+        console.log("Enhancer: Found embed element");
+        initializeWithEmbed(embedElement);
+      } else if (checkAttempts < maxAttempts) {
+        // Try again in 500ms
+        setTimeout(attemptToFindEmbed, 500);
+      } else {
+        // Give up after max attempts
+        console.error("Enhancer Error: Embed element not found after multiple attempts");
         
-        // Show loading overlay immediately
-        const loadingOverlay = createLoadingOverlay(embedElement);
-        
-        // Set up filter UI
-        const populateTagFilters = setupFilterUI(embedElement, config);
-        
-        // Apply filtering based on initial configuration
-        // Note: This will handle removing the loading overlay when done
-        applyFilteringToOriginalElements(config);
-        
-        // Initialize active filter badges
-        updateActiveFilterBadges(embedElement);
-        
-        // Set up observer to watch for changes to the DOM
-        // This handles cases where the original script updates the display
-        const observer = new MutationObserver((mutations) => {
-          // If cards or calendar content changes, re-apply filters
-          const shouldReapply = mutations.some(mutation => {
-            // Check if elements have been added
-            if (mutation.addedNodes.length > 0) {
-              for (let i = 0; i < mutation.addedNodes.length; i++) {
-                const node = mutation.addedNodes[i];
-                if (node.nodeType === 1) { // Element node
-                  if (
-                    node.classList.contains('fw-card') ||
-                    node.classList.contains('fc-event') ||
-                    node.classList.contains('fc-daygrid-day-events')
-                  ) {
-                    return true;
-                  }
+        // Last resort - try to find any element that looks like it might be the embed
+        const fourthWall = document.getElementById('fourth_wall');
+        if (fourthWall && fourthWall.children.length > 0) {
+          console.log("Enhancer: Using fallback embed detection");
+          initializeWithEmbed(fourthWall.children[0]);
+        } else {
+          // Nothing worked, force remove any spinner that might be there
+          const spinners = document.querySelectorAll('.fw-enhancer-loading-overlay');
+          spinners.forEach(spinner => spinner.remove());
+        }
+      }
+    }
+    
+    function initializeWithEmbed(embedElement) {
+      // Show loading overlay immediately
+      const loadingOverlay = createLoadingOverlay(embedElement);
+      
+      // Set up filter UI if enabled
+      const populateTagFilters = setupFilterUI(embedElement, config);
+      
+      // Apply filtering based on initial configuration
+      applyFilteringToOriginalElements(config);
+      
+      // Initialize active filter badges
+      updateActiveFilterBadges(embedElement);
+      
+      // Safety timeout to ensure spinner is removed even if something goes wrong
+      setTimeout(() => {
+        const spinners = document.querySelectorAll('.fw-enhancer-loading-overlay');
+        spinners.forEach(spinner => spinner.remove());
+      }, 5000);
+      
+      // Set up observer to watch for changes to the DOM
+      // This handles cases where the original script updates the display
+      const observer = new MutationObserver((mutations) => {
+        // If cards or calendar content changes, re-apply filters
+        const shouldReapply = mutations.some(mutation => {
+          // Check if elements have been added
+          if (mutation.addedNodes.length > 0) {
+            for (let i = 0; i < mutation.addedNodes.length; i++) {
+              const node = mutation.addedNodes[i];
+              if (node.nodeType === 1) { // Element node
+                if (
+                  node.classList.contains('fw-card') ||
+                  node.classList.contains('fc-event') ||
+                  node.classList.contains('fc-daygrid-day-events')
+                ) {
+                  return true;
                 }
               }
             }
-            return false;
-          });
-          
-          if (shouldReapply) {
-            // Only reapply if there's no loading overlay already
-            if (!document.querySelector('.fw-enhancer-loading-overlay')) {
-              applyFilteringToOriginalElements(config);
-            }
           }
+          return false;
         });
         
-        // Start observing
-        observer.observe(embedElement, {
-          childList: true,
-          subtree: true
-        });
-      }
-    }, 500);
+        if (shouldReapply) {
+          // Only reapply if there's no loading overlay already
+          if (!document.querySelector('.fw-enhancer-loading-overlay')) {
+            applyFilteringToOriginalElements(config);
+          }
+        }
+      });
+      
+      // Start observing
+      observer.observe(embedElement, {
+        childList: true,
+        subtree: true
+      });
+    }
     
-    // Set timeout to avoid waiting forever
-    setTimeout(() => {
-      clearInterval(checkForEmbed);
-      console.error("Enhancer Error: Embed element not found after timeout.");
-    }, 10000);
+    // Start checking for the embed element
+    attemptToFindEmbed();
   }
   
   // Start the enhancer when the page is fully loaded

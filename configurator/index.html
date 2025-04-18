@@ -180,18 +180,20 @@
                             </label>
                         </div>
                         
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="showFilterControls">
-                            <label class="form-check-label" for="showFilterControls">
-                                Show Filter Controls
-                            </label>
-                            <small class="form-text text-muted d-block">Enable or disable the filter button in the embed</small>
                         </div>
                     </div>
                     
                     <!-- Advanced Filtering -->
                     <div class="configurator-section">
                         <h3 class="mb-3">Advanced Filtering</h3>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="showFilterControls">
+                            <label class="form-check-label" for="showFilterControls">
+                                Show Filter Controls for Visitors
+                            </label>
+                            <small class="form-text text-muted d-block">When enabled, lets your patrons filter events to find shows that match their interests or schedule</small>
+                        </div>
                         
                         <div class="mb-3">
                             <label for="includeTag" class="form-label">Include Tags</label>
@@ -548,7 +550,8 @@
                 if (viewType !== 'calendar') script.setAttribute('data-view', viewType);
                 if (category) script.setAttribute('data-category', category);
                 if (devMode) script.setAttribute('data-development', 'true');
-                if (!showFilterControls) script.setAttribute('data-show-filters', 'false');
+                // Always set the show-filters attribute to make it explicit
+                script.setAttribute('data-show-filters', showFilterControls ? 'true' : 'false');
                 
                 // Add advanced filter attributes
                 if (includeTags.length > 0) script.setAttribute('data-include-tags', includeTags.join(','));
