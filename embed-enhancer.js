@@ -1,5 +1,5 @@
 /**
- * CrowdWork Event Display Embed Script Enhancer v2.1.6
+ * CrowdWork Event Display Embed Script Enhancer v2.1.7
  * 
  * This script enhances the original embed.js with advanced filtering capabilities
  * without modifying the original script. It adds client-side filtering and display options
@@ -22,7 +22,8 @@
  * - data-special-filter: Predefined filters like "this-week", "next-weekend", etc.
  * - data-limit: Maximum number of events to display
  * - data-combined-view: "true" to show both shows and classes in one view
- * - data-show-filters: "false" to hide the filter button (default is "true")
+ * - data-show-filters: "false" to hide the filter button (default is "false")
+ * - data-show-tags: "true" to display event tags directly on cards and calendar events (default is "false")
  */
 
 (function() {
@@ -275,6 +276,9 @@
         padding: 3px 8px;
         font-size: 11px;
         border-radius: 3px;
+        width: auto;
+        height: auto;
+        pointer-events: none;
       }
       
       .fw-enhancer-class-badge {
@@ -425,7 +429,8 @@
       specialFilter: originalScript.getAttribute("data-special-filter"),
       limit: parseInt(originalScript.getAttribute("data-limit") || "0", 10),
       combinedView: originalScript.getAttribute("data-combined-view") === "true",
-      showFilters: originalScript.getAttribute("data-show-filters") === "true" // default to false
+      showFilters: originalScript.getAttribute("data-show-filters") === "true", // default to false
+      showTags: originalScript.getAttribute("data-show-tags") === "true" // default to false
     };
   }
   
@@ -448,7 +453,10 @@
     
     // Set days of week filter
     if (config.daysOfWeek) {
-      filterState.daysOfWeek = config.daysOfWeek.split(',').map(day => parseInt(day.trim(), 10));
+      filterState.daysOfWeek = config.daysOfWeek.split(',').map(day => {
+        // Ensure we're getting a clean integer (handles whitespace, leading zeros, etc.)
+        return parseInt(day.trim(), 10);
+      }).filter(day => !isNaN(day) && day >= 0 && day <= 6); // Ensure we only have valid day numbers
     }
     
     // Set special filter
@@ -810,10 +818,13 @@
     
     // Apply day of week filter
     if (filterState.daysOfWeek.length > 0) {
+      console.log("Filtering for days of week:", filterState.daysOfWeek);
       filteredEvents = filteredEvents.filter(event => {
         const eventDate = new Date(event.start);
         const dayOfWeek = eventDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
-        return filterState.daysOfWeek.includes(dayOfWeek);
+        const included = filterState.daysOfWeek.includes(dayOfWeek);
+        console.log("Event:", event.title, "Day:", dayOfWeek, "Included:", included);
+        return included;
       });
     }
     
@@ -1264,8 +1275,8 @@
             if (elementDate.toDateString() === eventDate.toDateString()) {
               eventEl.style.display = ''; // Show this event
               
-              // Add tags to event element if not already present
-              if (filteredEvent.tags && filteredEvent.tags.length > 0) {
+              // Add tags to event element if not already present and showTags is enabled
+              if (getOriginalScriptConfig().showTags && filteredEvent.tags && filteredEvent.tags.length > 0) {
                 const existingTags = eventEl.querySelector('.event-tags-container');
                 if (!existingTags) {
                   const tagsContainer = document.createElement('div');
@@ -1385,8 +1396,8 @@
           card.style.display = '';
           found = true;
           
-          // Add tags if not already present
-          if (event.tags && event.tags.length > 0) {
+          // Add tags if not already present and showTags is enabled
+          if (getOriginalScriptConfig().showTags && event.tags && event.tags.length > 0) {
             const existingTags = card.querySelector('.tag-badges');
             if (!existingTags) {
               const tagBadges = document.createElement('div');
@@ -1454,9 +1465,9 @@
         const typeBadge = (getOriginalScriptConfig().combinedView && event.type) ? 
           `<div class="badge fw-enhancer-type-badge ${event.type === 'classes' ? 'fw-enhancer-class-badge' : 'fw-enhancer-show-badge'}">${event.type === 'classes' ? 'Class' : 'Show'}</div>` : '';
         
-        // Create tag badges
+        // Create tag badges if showTags is enabled
         let tagBadges = '';
-        if (event.tags && event.tags.length > 0) {
+        if (getOriginalScriptConfig().showTags && event.tags && event.tags.length > 0) {
           tagBadges = '<div class="tag-badges">' + 
             event.tags.map(tag => `<span class="badge fw-enhancer-tag-badge">${tag}</span>`).join('') + 
             '</div>';

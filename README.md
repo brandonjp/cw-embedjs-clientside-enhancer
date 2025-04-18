@@ -1,4 +1,4 @@
-# Enhanced Event Display Embed Scripts (v2.1.6)
+# Enhanced Event Display Embed Scripts (v2.1.7)
 
 This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 
@@ -60,6 +60,7 @@ The script supports the following configuration options via data attributes:
 | Attribute | Type | Description | Default |
 |-----------|------|-------------|---------|
 | `data-show-filters` | boolean | Show or hide the filter button for visitors | false |
+| `data-show-tags` | boolean | Display event tags directly on cards and calendar events | false |
 | `data-include-tags` | string | Comma-separated list of tags to include | None |
 | `data-exclude-tags` | string | Comma-separated list of tags to exclude | None |
 | `data-tag-match` | string | Tag matching strategy: "any" or "all" | "any" |

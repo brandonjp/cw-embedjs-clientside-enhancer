@@ -195,6 +195,14 @@
                             <small class="form-text text-muted d-block">When enabled, lets your patrons filter events to find shows that match their interests or schedule</small>
                         </div>
                         
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="showTags">
+                            <label class="form-check-label" for="showTags">
+                                Display Event Tags on Cards
+                            </label>
+                            <small class="form-text text-muted d-block">Shows event tags directly on cards to help visitors identify event types at a glance</small>
+                        </div>
+                        
                         <div class="mb-3">
                             <label for="includeTag" class="form-label">Include Tags</label>
                             <div class="input-group">
@@ -235,33 +243,33 @@
                         
                         <div class="mb-3">
                             <label for="daysOfWeek" class="form-label">Days of Week</label>
-                            <div class="d-flex flex-wrap gap-2">
+                            <div class="d-flex flex-wrap gap-2" id="daysOfWeek">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="0" id="sunday">
+                                    <input class="form-check-input" type="checkbox" value="0" id="sunday" name="day-of-week">
                                     <label class="form-check-label" for="sunday">Sunday</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" id="monday">
+                                    <input class="form-check-input" type="checkbox" value="1" id="monday" name="day-of-week">
                                     <label class="form-check-label" for="monday">Monday</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="2" id="tuesday">
+                                    <input class="form-check-input" type="checkbox" value="2" id="tuesday" name="day-of-week">
                                     <label class="form-check-label" for="tuesday">Tuesday</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="3" id="wednesday">
+                                    <input class="form-check-input" type="checkbox" value="3" id="wednesday" name="day-of-week">
                                     <label class="form-check-label" for="wednesday">Wednesday</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="4" id="thursday">
+                                    <input class="form-check-input" type="checkbox" value="4" id="thursday" name="day-of-week">
                                     <label class="form-check-label" for="thursday">Thursday</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="5" id="friday">
+                                    <input class="form-check-input" type="checkbox" value="5" id="friday" name="day-of-week">
                                     <label class="form-check-label" for="friday">Friday</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="6" id="saturday">
+                                    <input class="form-check-input" type="checkbox" value="6" id="saturday" name="day-of-week">
                                     <label class="form-check-label" for="saturday">Saturday</label>
                                 </div>
                             </div>
@@ -399,6 +407,7 @@
                 const combinedView = document.getElementById('combinedView').checked;
                 const devMode = document.getElementById('developmentMode').checked;
                 const showFilterControls = document.getElementById('showFilterControls').checked;
+                const showTags = document.getElementById('showTags').checked;
                 
                 // Advanced filters
                 const tagMatch = document.getElementById('tagMatch').value;
@@ -409,10 +418,8 @@
                 
                 // Days of week
                 const daysOfWeek = [];
-                document.querySelectorAll('input[type="checkbox"][id^="sunday"], input[type="checkbox"][id^="monday"], input[type="checkbox"][id^="tuesday"], input[type="checkbox"][id^="wednesday"], input[type="checkbox"][id^="thursday"], input[type="checkbox"][id^="friday"], input[type="checkbox"][id^="saturday"]').forEach(checkbox => {
-                    if (checkbox.checked) {
-                        daysOfWeek.push(checkbox.value);
-                    }
+                document.querySelectorAll('#daysOfWeek input[name="day-of-week"]:checked').forEach(checkbox => {
+                    daysOfWeek.push(checkbox.value);
                 });
                 
                 // Build embed code
@@ -426,6 +433,7 @@
                 if (category) embedCode += `data-category="${category}" `;
                 if (devMode) embedCode += `data-development="true" `;
                 if (!showFilterControls) embedCode += `data-show-filters="false" `;
+                if (showTags) embedCode += `data-show-tags="true" `;
                 
                 // Add filter attributes
                 if (includeTags.length > 0) embedCode += `data-include-tags="${includeTags.join(',')}" `;
@@ -542,6 +550,7 @@
                 const combinedView = document.getElementById('combinedView').checked;
                 const devMode = document.getElementById('developmentMode').checked;
                 const showFilterControls = document.getElementById('showFilterControls').checked;
+                const showTags = document.getElementById('showTags').checked;
                 
                 // Create the main script element
                 const script = document.createElement('script');
@@ -555,6 +564,8 @@
                 if (devMode) script.setAttribute('data-development', 'true');
                 // Always set the show-filters attribute to make it explicit
                 script.setAttribute('data-show-filters', showFilterControls ? 'true' : 'false');
+                // Set show-tags attribute if enabled
+                if (showTags) script.setAttribute('data-show-tags', 'true');
                 
                 // Add advanced filter attributes
                 if (includeTags.length > 0) script.setAttribute('data-include-tags', includeTags.join(','));
@@ -574,10 +585,8 @@
                 
                 // Days of week
                 const daysOfWeek = [];
-                document.querySelectorAll('input[type="checkbox"][id^="sunday"], input[type="checkbox"][id^="monday"], input[type="checkbox"][id^="tuesday"], input[type="checkbox"][id^="wednesday"], input[type="checkbox"][id^="thursday"], input[type="checkbox"][id^="friday"], input[type="checkbox"][id^="saturday"]').forEach(checkbox => {
-                    if (checkbox.checked) {
-                        daysOfWeek.push(checkbox.value);
-                    }
+                document.querySelectorAll('#daysOfWeek input[name="day-of-week"]:checked').forEach(checkbox => {
+                    daysOfWeek.push(checkbox.value);
                 });
                 
                 if (daysOfWeek.length > 0) {

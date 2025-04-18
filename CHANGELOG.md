@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 2.1.7 (2025-04-18)
+
+### New Features
+- Added "Display Event Tags" option:
+  - New `data-show-tags` attribute to control visibility of tags on cards and events
+  - Default is false (tags hidden) for cleaner presentation
+  - When enabled, shows tags directly on cards to help identify event types
+  - Implemented in both calendar and card views
+
+### Bug Fixes
+- Fixed SHOW/CLASS badge display:
+  - Fixed issue where badge was blocking the entire image
+  - Added width/height constraints and pointer-events: none
+  - Improved badge positioning for better visibility
+- Fixed days of week filtering:
+  - Improved checkbox selection in configurator
+  - Added better data validation for day values
+  - Fixed filtering logic to properly respect selected days
+  - Added debug logging to help troubleshoot filtering issues
+
 ## Version 2.1.6 (2025-04-18)
 
 ### Feature Improvements
