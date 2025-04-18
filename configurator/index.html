@@ -11,6 +11,7 @@
         body {
             padding-top: 2rem;
             padding-bottom: 2rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
         .header-disclaimer {
             background-color: #f8d7da;
@@ -338,8 +339,10 @@
                 
                 // Days of week
                 const daysOfWeek = [];
-                document.querySelectorAll('#daysOfWeek input[type="checkbox"]:checked').forEach(checkbox => {
-                    daysOfWeek.push(checkbox.value);
+                document.querySelectorAll('input[type="checkbox"][id^="sunday"], input[type="checkbox"][id^="monday"], input[type="checkbox"][id^="tuesday"], input[type="checkbox"][id^="wednesday"], input[type="checkbox"][id^="thursday"], input[type="checkbox"][id^="friday"], input[type="checkbox"][id^="saturday"]').forEach(checkbox => {
+                    if (checkbox.checked) {
+                        daysOfWeek.push(checkbox.value);
+                    }
                 });
                 
                 // Build embed code
@@ -364,10 +367,8 @@
                 }
                 
                 // Days of week
-                const dowCheckboxes = document.querySelectorAll('[id^="day"]:checked');
-                const selectedDays = Array.from(dowCheckboxes).map(cb => cb.value);
-                if (selectedDays.length > 0) {
-                    embedCode += `data-days-of-week="${selectedDays.join(',')}" `;
+                if (daysOfWeek.length > 0) {
+                    embedCode += `data-days-of-week="${daysOfWeek.join(',')}" `;
                 }
                 
                 // Special filter
@@ -379,10 +380,10 @@
                 // Combined view
                 if (combinedView) embedCode += `data-combined-view="true" `;
                 
-                embedCode += `></script>\n`;
+                embedCode += `><\/script>\n`;
                 
                 // Add enhancer script
-                embedCode += `<script src="https://path-to/embed-enhancer.js"></script>\n`;
+                embedCode += `<script src="../embed-enhancer.js"><\/script>\n`;
                 
                 // Add container div
                 embedCode += `<div id="fourth_wall"></div>`;
@@ -393,6 +394,8 @@
                 
                 // Scroll to the output
                 document.getElementById('codeOutputContainer').scrollIntoView({ behavior: 'smooth' });
+                
+                return false; // Prevent form submission
             });
             
             // Copy button

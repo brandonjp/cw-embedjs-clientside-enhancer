@@ -1,4 +1,4 @@
-# Enhanced Event Display Embed Scripts
+# Enhanced Event Display Embed Scripts (v2.1.1)
 
 This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 

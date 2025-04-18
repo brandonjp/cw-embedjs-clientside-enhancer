@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 2.1.1 (2025-04-18)
+
+### Configurator Tool Fixes
+- Fixed UI issues in the configurator tool:
+  - Added sans-serif font styling throughout the interface
+  - Fixed script tag rendering issues in the generated code
+  - Fixed form submission to properly display generated code without page reload
+  - Updated enhancer script path to use relative path for easier testing
+- Improved day of week selector to correctly capture selected days
+
 ## Version 2.1.0 (2025-04-18)
 
 ### Major Improvements
