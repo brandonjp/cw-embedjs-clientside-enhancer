@@ -1,4 +1,4 @@
-# Enhanced Event Display Embed Scripts (v2.1.1)
+# Enhanced Event Display Embed Scripts (v2.1.2)
 
 This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 
@@ -28,7 +28,9 @@ For an easier setup, use the configurator tool to generate your embed code:
 
 1. Open the configurator tool at `/configurator/index.html`
 2. Configure your desired options
-3. Copy the generated code to your website
+3. Click "Preview Live" to see how it will look on your website
+4. Make adjustments as needed and preview again
+5. When satisfied, click "Get Embed Code" and copy to your website
 
 ## Configuration Options
 

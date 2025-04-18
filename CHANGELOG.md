@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 2.1.2 (2025-04-18)
+
+### Configurator Tool Enhancements
+- Added live preview functionality:
+  - New "Preview Live" button to see the widget in action
+  - Loading spinner while preview loads
+  - Interactive workflow to preview, edit, and generate code
+- Improved user experience:
+  - Added tooltips and help text for all configuration options
+  - Added form reset button to start over
+  - Improved mobile responsiveness with better button layouts
+  - Added visual feedback during preview loading
+
 ## Version 2.1.1 (2025-04-18)
 
 ### Configurator Tool Fixes
