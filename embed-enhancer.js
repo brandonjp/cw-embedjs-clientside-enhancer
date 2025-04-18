@@ -1,5 +1,5 @@
 /**
- * CrowdWork Event Display Embed Script Enhancer v2.1.5
+ * CrowdWork Event Display Embed Script Enhancer v2.1.6
  * 
  * This script enhances the original embed.js with advanced filtering capabilities
  * without modifying the original script. It adds client-side filtering and display options
@@ -525,8 +525,22 @@
     // Handle explicit date range (e.g., "2025-04-01,2025-04-30")
     if (config.dateRange) {
       const [startStr, endStr] = config.dateRange.split(',');
-      if (startStr) filterState.startDate = new Date(startStr);
-      if (endStr) filterState.endDate = new Date(endStr);
+      
+      // First date only: from that date to forever
+      if (startStr && !endStr) {
+        filterState.startDate = new Date(startStr);
+        filterState.endDate = null;
+      }
+      // End date only: from today to that date
+      else if (!startStr && endStr) {
+        filterState.startDate = new Date(); // Today
+        filterState.endDate = new Date(endStr);
+      }
+      // Both dates: use the specified range
+      else if (startStr && endStr) {
+        filterState.startDate = new Date(startStr);
+        filterState.endDate = new Date(endStr);
+      }
     }
     
     // Handle special filters

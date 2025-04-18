@@ -432,9 +432,11 @@
                 if (excludeTags.length > 0) embedCode += `data-exclude-tags="${excludeTags.join(',')}" `;
                 if (tagMatch !== 'any') embedCode += `data-tag-match="${tagMatch}" `;
                 
-                // Date range
-                if (startDate && endDate) {
-                    embedCode += `data-date-range="${startDate},${endDate}" `;
+                // Date range - handle if only one date is provided
+                if (startDate || endDate) {
+                    const startVal = startDate || '';
+                    const endVal = endDate || '';
+                    embedCode += `data-date-range="${startVal},${endVal}" `;
                 }
                 
                 // Days of week
@@ -453,8 +455,8 @@
                 
                 embedCode += `><\/script>\n`;
                 
-                // Add enhancer script
-                embedCode += `<script src="../embed-enhancer.js"><\/script>\n`;
+                // Add enhancer script with same query string as the embed script
+                embedCode += `<script src="https://brandonjp.github.io/cw-embedjs-clientside-enhancer/embed-enhancer.js?v=BETA-2025-04"><\/script>\n`;
                 
                 // Add container div
                 embedCode += `<div id="fourth_wall"></div>`;
@@ -496,9 +498,10 @@
                 document.getElementById('codeOutputContainer').classList.add('d-none');
                 document.getElementById('previewContainer').classList.remove('d-none');
                 
-                // Clear previous preview content
+                // Clear previous preview content and recreate container
+                const previewFrame = document.querySelector('.preview-frame');
+                previewFrame.innerHTML = '<div id="previewContent" style="position: relative;"></div>';
                 const previewContent = document.getElementById('previewContent');
-                previewContent.innerHTML = '';
                 
                 // Show loading indicator
                 const loadingOverlay = document.createElement('div');
@@ -560,10 +563,13 @@
                     script.setAttribute('data-tag-match', document.getElementById('tagMatch').value);
                 }
                 
-                // Date range
-                if (document.getElementById('startDate').value && document.getElementById('endDate').value) {
-                    script.setAttribute('data-date-range', 
-                        `${document.getElementById('startDate').value},${document.getElementById('endDate').value}`);
+                // Date range - handle if only one date is provided
+                const startDateVal = document.getElementById('startDate').value;
+                const endDateVal = document.getElementById('endDate').value;
+                if (startDateVal || endDateVal) {
+                    const startVal = startDateVal || '';
+                    const endVal = endDateVal || '';
+                    script.setAttribute('data-date-range', `${startVal},${endVal}`);
                 }
                 
                 // Days of week
@@ -594,9 +600,9 @@
                 // Add script to page
                 previewContent.appendChild(script);
                 
-                // Add enhancer script
+                // Add enhancer script with same query string as the embed script
                 const enhancerScript = document.createElement('script');
-                enhancerScript.src = '../embed-enhancer.js';
+                enhancerScript.src = 'https://brandonjp.github.io/cw-embedjs-clientside-enhancer/embed-enhancer.js?v=BETA-2025-04';
                 previewContent.appendChild(enhancerScript);
                 
                 // Force remove the spinner after a brief delay - always shows content

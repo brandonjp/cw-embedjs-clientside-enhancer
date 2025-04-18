@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 2.1.6 (2025-04-18)
+
+### Feature Improvements
+- Enhanced date range filtering:
+  - Added support for one-sided date ranges (start date only or end date only)
+  - Start date only: Shows events from that date forward
+  - End date only: Shows events from today until that date
+  - Improved handling of date inputs in configurator
+
+### Bug Fixes
+- Fixed preview functionality in configurator:
+  - Completely rebuilds preview container to ensure clean state
+  - Fixed issue where view type changes weren't reflected in preview
+  - Updated script URLs to use hosted version with query string
+  - More reliable preview rendering across all configurations
+
 ## Version 2.1.5 (2025-04-18)
 
 ### Critical Bug Fixes

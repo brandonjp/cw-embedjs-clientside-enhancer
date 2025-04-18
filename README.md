@@ -1,4 +1,4 @@
-# Enhanced Event Display Embed Scripts (v2.1.5)
+# Enhanced Event Display Embed Scripts (v2.1.6)
 
 This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 
@@ -64,7 +64,7 @@ The script supports the following configuration options via data attributes:
 | `data-exclude-tags` | string | Comma-separated list of tags to exclude | None |
 | `data-tag-match` | string | Tag matching strategy: "any" or "all" | "any" |
 | `data-limit` | number | Maximum number of events to show | 0 (no limit) |
-| `data-date-range` | string | Date range (format: "YYYY-MM-DD,YYYY-MM-DD") | None |
+| `data-date-range` | string | Date range in format "start,end" (e.g., "2025-05-01,2025-05-31"). For one-sided ranges, use "start," or ",end" | None |
 | `data-date-offset` | string | Show events within period (e.g., "7d", "2w", "1m") | None |
 | `data-days-of-week` | string | Comma-separated days to include (0-6, where 0=Sunday) | None |
 | `data-special-filter` | string | Predefined filter (see Special Filters) | None |
@@ -98,8 +98,8 @@ The enhancer script automatically detects and applies filters based on URL param
 | `include-tags` | Comma-separated list of tags to include | `?include-tags=comedy,music` |
 | `exclude-tags` | Comma-separated list of tags to exclude | `?exclude-tags=18+,mature` |
 | `tag-match` | Tag matching strategy: "any" or "all" | `?tag-match=all` |
-| `start-date` | Filter start date (YYYY-MM-DD) | `?start-date=2025-05-01` |
-| `end-date` | Filter end date (YYYY-MM-DD) | `?end-date=2025-05-31` |
+| `start-date` | Filter start date (YYYY-MM-DD) | `?start-date=2025-05-01` (from this date forward) |
+| `end-date` | Filter end date (YYYY-MM-DD) | `?end-date=2025-05-31` (from today until this date) |
 | `days-of-week` | Comma-separated days to include (0-6) | `?days-of-week=5,6` (weekends) |
 | `limit` | Maximum number of events to show | `?limit=5` |
 | `special-filter` | Predefined filter | `?special-filter=next-weekend` |
