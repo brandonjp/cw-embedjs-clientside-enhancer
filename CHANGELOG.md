@@ -12,6 +12,10 @@
   - Added form reset button to start over
   - Improved mobile responsiveness with better button layouts
   - Added visual feedback during preview loading
+- Added documentation for online configurator:
+  - Added prominent links to the hosted version at GitHub Pages
+  - Updated README with badge and direct links to online configurator
+  - Added instructions for using the online version
 
 ## Version 2.1.1 (2025-04-18)
 

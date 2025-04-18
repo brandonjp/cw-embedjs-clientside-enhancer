@@ -2,6 +2,8 @@
 
 This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 
+[![Try the Configurator](https://img.shields.io/badge/Try%20the%20Configurator-blue?style=for-the-badge)](https://brandonjp.github.io/cw-embedjs-clientside-enhancer/configurator)
+
 ## Overview
 
 1. **Enhancer Script (`embed-enhancer.js`)**: Works alongside the original embed script to add advanced filtering
@@ -26,11 +28,15 @@ Include the original embed script followed by the enhancer script:
 
 For an easier setup, use the configurator tool to generate your embed code:
 
-1. Open the configurator tool at `/configurator/index.html`
+**[Try the Configurator Online](https://brandonjp.github.io/cw-embedjs-clientside-enhancer/configurator)**
+
+1. Access the online configurator at the link above, or run it locally at `/configurator/index.html`
 2. Configure your desired options
 3. Click "Preview Live" to see how it will look on your website
 4. Make adjustments as needed and preview again
 5. When satisfied, click "Get Embed Code" and copy to your website
+
+The online configurator is the easiest way to build your embed code without downloading any files.
 
 ## Configuration Options
 
