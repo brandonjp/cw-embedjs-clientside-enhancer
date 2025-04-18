@@ -181,7 +181,7 @@
                         </div>
                         
                         <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="showFilterControls" checked>
+                            <input class="form-check-input" type="checkbox" id="showFilterControls">
                             <label class="form-check-label" for="showFilterControls">
                                 Show Filter Controls
                             </label>
@@ -313,8 +313,8 @@
                     <div class="alert alert-warning mb-3">
                         <strong>Note:</strong> This is a live preview of how your embed will appear on your website. You can continue to adjust settings and preview again as needed.
                     </div>
-                    <div class="preview-frame p-3 border rounded mb-4 bg-white">
-                        <div id="previewContent"></div>
+                    <div class="preview-frame p-3 border rounded mb-4 bg-white" style="position: relative; min-height: 500px;">
+                        <div id="previewContent" style="position: relative;"></div>
                     </div>
                     <div class="text-center mb-4">
                         <button id="editConfigBtn" class="btn btn-primary">Edit Configuration</button>
@@ -501,8 +501,20 @@
                 // Show loading indicator
                 const loadingOverlay = document.createElement('div');
                 loadingOverlay.className = 'preview-loading';
+                loadingOverlay.style.position = 'absolute';
+                loadingOverlay.style.top = '0';
+                loadingOverlay.style.left = '0';
+                loadingOverlay.style.width = '100%';
+                loadingOverlay.style.height = '100%';
+                loadingOverlay.style.backgroundColor = 'rgba(255,255,255,0.9)';
+                loadingOverlay.style.display = 'flex';
+                loadingOverlay.style.flexDirection = 'column';
+                loadingOverlay.style.alignItems = 'center';
+                loadingOverlay.style.justifyContent = 'flex-start';
+                loadingOverlay.style.paddingTop = '30%';
+                loadingOverlay.style.zIndex = '1000';
                 loadingOverlay.innerHTML = `
-                    <div class="spinner-border text-primary mb-3" role="status">
+                    <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                     <p>Loading preview, please wait...</p>
@@ -584,28 +596,12 @@
                 enhancerScript.src = '../embed-enhancer.js';
                 previewContent.appendChild(enhancerScript);
                 
-                // Listen for the embed to load and remove spinner
-                const embedLoadCheckInterval = setInterval(() => {
-                    // Check if the calendar or card elements are rendered
-                    const calendarElement = document.querySelector('.fw-calendar');
-                    const cardsElement = document.querySelector('.fw-cards');
-                    
-                    // If either element exists, remove the loading overlay
-                    if (calendarElement || cardsElement) {
-                        if (previewContent.contains(loadingOverlay)) {
-                            previewContent.removeChild(loadingOverlay);
-                        }
-                        clearInterval(embedLoadCheckInterval);
-                    }
-                }, 500);
-                
-                // Fallback - remove spinner after 10 seconds regardless
+                // Force remove the spinner after a brief delay - always shows content
                 setTimeout(() => {
                     if (previewContent.contains(loadingOverlay)) {
                         previewContent.removeChild(loadingOverlay);
                     }
-                    clearInterval(embedLoadCheckInterval);
-                }, 10000);
+                }, 2500);
             });
             
             // Reset form button

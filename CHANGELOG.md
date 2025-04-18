@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 2.1.4 (2025-04-18)
+
+### User Experience Improvements
+- Improved loading spinner positioning:
+  - Moved spinner to top portion of the container for better visibility
+  - Fixed spinner issues that were preventing content display
+  - Improved reliability of spinner removal after loading
+  - Added better positioning for tall calendar containers
+
+### Bug Fixes
+- Fixed filter controls implementation:
+  - Made filter control disabled by default as desired by most theatres
+  - Fixed issue where filter controls would still appear even when disabled
+  - Improved overall reliability of the preview feature
+  - Fixed CORS errors and other loading issues
+
 ## Version 2.1.3 (2025-04-18)
 
 ### Important Feature Additions

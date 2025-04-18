@@ -1,5 +1,5 @@
 /**
- * CrowdWork Event Display Embed Script Enhancer v2.1.0
+ * CrowdWork Event Display Embed Script Enhancer v2.1.3
  * 
  * This script enhances the original embed.js with advanced filtering capabilities
  * without modifying the original script. It adds client-side filtering and display options
@@ -22,6 +22,7 @@
  * - data-special-filter: Predefined filters like "this-week", "next-weekend", etc.
  * - data-limit: Maximum number of events to display
  * - data-combined-view: "true" to show both shows and classes in one view
+ * - data-show-filters: "false" to hide the filter button (default is "true")
  */
 
 (function() {
@@ -338,7 +339,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-top: 70px;
         background-color: rgba(255, 255, 255, 0.9);
         z-index: 1000;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -422,7 +424,8 @@
       daysOfWeek: originalScript.getAttribute("data-days-of-week"),
       specialFilter: originalScript.getAttribute("data-special-filter"),
       limit: parseInt(originalScript.getAttribute("data-limit") || "0", 10),
-      combinedView: originalScript.getAttribute("data-combined-view") === "true"
+      combinedView: originalScript.getAttribute("data-combined-view") === "true",
+      showFilters: originalScript.getAttribute("data-show-filters") !== "false" // default to true
     };
   }
   
@@ -815,6 +818,11 @@
   function setupFilterUI(embedElement, config) {
     if (!embedElement) return;
     
+    // Only show filter UI if config.showFilters is true
+    if (!config.showFilters) {
+      return () => {}; // Return an empty function if filters shouldn't be shown
+    }
+    
     // Insert filter UI above the embed
     const filterContainer = document.createElement('div');
     filterContainer.id = `${SCRIPT_ID}-filter-container`;
@@ -1012,6 +1020,12 @@
   
   // Show currently active filters as badges
   function updateActiveFilterBadges(embedElement) {
+    // Check if filters should be shown
+    const config = getOriginalScriptConfig();
+    if (!config || !config.showFilters) {
+      return; // Don't show filter badges if filters are disabled
+    }
+    
     // Remove existing badges
     const existingBadges = document.querySelector('.fw-enhancer-filter-badge-container');
     if (existingBadges) {
