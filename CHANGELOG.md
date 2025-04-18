@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 2.1.3 (2025-04-18)
+
+### Important Feature Additions
+- Added filter button toggle option:
+  - New `data-show-filters` attribute to control visibility of filter controls
+  - Default is true (filters shown) for backward compatibility
+  - Added in configurator as checkbox in basic settings
+  - Updated documentation to reflect new attribute
+
+### Bug Fixes
+- Fixed preview loading spinner:
+  - Added smart detection of calendar/card elements to remove spinner
+  - Added fallback timer to ensure spinner is removed
+  - Fixed CORS issues by removing unnecessary stylesheet references
+  - More reliable preview experience with better load handling
+
 ## Version 2.1.2 (2025-04-18)
 
 ### Configurator Tool Enhancements

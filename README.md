@@ -1,4 +1,4 @@
-# Enhanced Event Display Embed Scripts (v2.1.2)
+# Enhanced Event Display Embed Scripts (v2.1.3)
 
 This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.
 
@@ -54,6 +54,7 @@ The script supports the following configuration options via data attributes:
 | `data-start-dow` | number | First day of week (0=Sunday, 1=Monday, etc.) | 1 (Monday) |
 | `data-local` | boolean | Whether to open links in same window | false |
 | `data-development` | boolean | Enable development mode | false |
+| `data-show-filters` | boolean | Show or hide the filter button for visitors | true |
 
 ### Advanced Filtering Options (New)
 
