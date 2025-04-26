@@ -1,0 +1,32 @@
+{
+  "name": "cw-embedjs-clientside-enhancer",
+  "version": "2.1.7",
+  "description": "This project provides a JavaScript enhancer that adds advanced filtering capabilities to the original event display embed script.",
+  "main": "embed-enhancer.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandonjp/cw-embedjs-clientside-enhancer.git"
+  },
+  "keywords": [
+    "crowdwork",
+    "events",
+    "filtering",
+    "enhancement"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brandonjp/cw-embedjs-clientside-enhancer/issues"
+  },
+  "homepage": "https://github.com/brandonjp/cw-embedjs-clientside-enhancer#readme",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
