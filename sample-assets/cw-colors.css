@@ -1,0 +1,55 @@
+:root {
+  /* Primary Colors */
+  --coral: #FF9A8A;
+  --teal: #49BCAB;
+  --purple: #A09BD7;
+
+  /* Secondary Colors */
+  --mint: #A4DBC0;
+  --sun: #FAD46B;
+  --rose: #FFCAD1;
+
+  /* Tertiary Colors */
+  --ocean: #4C98E6;
+  --amber: #FFA200;
+
+  /* Neutral Colors */
+  --dark: #1A1A2B;
+  --gray: #6B6B7B;
+  --light-gray: #9898A3;
+
+  /* Background Shades */
+  --coral-light: rgba(255, 154, 138, 0.1);
+  --teal-light: rgba(73, 188, 171, 0.1);
+  --purple-light: rgba(160, 155, 215, 0.1);
+
+  /* Utility Colors */
+  --text-primary: var(--dark);
+  --text-secondary: var(--gray);
+  --background: #FFFFFF;
+  --border: var(--light-gray);
+}
+
+/* Color Utility Classes */
+.bg-coral { background-color: var(--coral); }
+.bg-teal { background-color: var(--teal); }
+.bg-purple { background-color: var(--purple); }
+.bg-mint { background-color: var(--mint); }
+.bg-sun { background-color: var(--sun); }
+.bg-rose { background-color: var(--rose); }
+.bg-ocean { background-color: var(--ocean); }
+.bg-amber { background-color: var(--amber); }
+
+.text-coral { color: var(--coral); }
+.text-teal { color: var(--teal); }
+.text-purple { color: var(--purple); }
+.text-mint { color: var(--mint); }
+.text-sun { color: var(--sun); }
+.text-rose { color: var(--rose); }
+.text-ocean { color: var(--ocean); }
+.text-amber { color: var(--amber); }
+
+/* Border Utility Classes */
+.border-coral { border-color: var(--coral); }
+.border-teal { border-color: var(--teal); }
+.border-purple { border-color: var(--purple); }

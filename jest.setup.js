@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { jest } from '@jest/globals';
 
 // Mock the CrowdWork embed.js script
 global.FourthWall = {
