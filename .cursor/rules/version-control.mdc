@@ -1,0 +1,33 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Version Control Guidelines
+
+## Version Numbering
+The project follows semantic versioning (MAJOR.MINOR.PATCH):
+- MAJOR (x.0.0): Breaking changes
+- MINOR (0.x.0): New features
+- PATCH (0.0.x): Bug fixes and small improvements
+
+## Version Update Locations
+When updating versions, ensure all these locations are synchronized:
+1. [embed-enhancer.js](mdc:embed-enhancer.js) header comment
+2. [configurator/index.html](mdc:configurator/index.html) version display
+3. Script URLs in both files
+4. CHANGELOG.md entries
+5. README.md version references
+
+## Documentation Requirements
+For each version change:
+- Update CHANGELOG.md with detailed changes
+- Update README.md if features/requirements change
+- Update any TODO.md or ROADMAP.md items completed
+- Document any breaking changes prominently
+
+## Branch Management
+- Primary branch is 'main' (not 'master')
+- Create feature branches for new development
+- Tag all releases with version numbers
+- Include detailed commit messages

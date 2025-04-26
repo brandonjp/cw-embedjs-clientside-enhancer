@@ -1,0 +1,35 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Project Structure Guide
+
+This is a client-side enhancement script for CrowdWork's event display embed system. The project consists of two main components:
+
+1. The main enhancer script: [embed-enhancer.js](mdc:embed-enhancer.js)
+   - Provides advanced filtering capabilities
+   - Adds client-side filtering and display options
+   - Works with both calendar and card views
+   - Current version: v2.1.7
+
+2. The configurator tool: [configurator/index.html](mdc:configurator/index.html)
+   - Web-based configuration interface
+   - Generates embed code with enhanced features
+   - Provides live preview functionality
+   - Includes comprehensive filtering options
+
+## Key Features
+- Tag-based filtering (include/exclude)
+- Date range filtering
+- Special date filters (this week, next weekend, etc.)
+- Day of week filtering
+- Combined view options (shows + classes)
+- Preview capabilities
+- Mobile-responsive design
+
+## Important Notes
+- The enhancer script must be loaded after the original CrowdWork embed.js
+- All filtering is done client-side to avoid modifying the original API calls
+- The configurator is an unofficial tool and should be marked as such
+- Version numbers should be kept in sync between the enhancer script and configurator

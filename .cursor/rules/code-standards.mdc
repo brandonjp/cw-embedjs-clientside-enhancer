@@ -1,0 +1,39 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Code Standards and Best Practices
+
+## Script Organization
+The enhancer script [embed-enhancer.js](mdc:embed-enhancer.js) follows these principles:
+- Clear function documentation with JSDoc comments
+- Modular function design for maintainability
+- Consistent error handling patterns
+- Non-blocking operations where possible
+- Defensive programming with fallbacks
+
+## Configurator Standards
+The configurator [configurator/index.html](mdc:configurator/index.html) follows these guidelines:
+- Semantic HTML structure
+- Bootstrap 5.2.3 components and utilities
+- Mobile-first responsive design
+- Clear user feedback for all actions
+- Comprehensive form validation
+- Accessible UI elements
+
+## General Practices
+- Use clear, descriptive variable names
+- Add comments for complex logic
+- Include error handling for API calls
+- Maintain backward compatibility
+- Follow progressive enhancement principles
+- Keep dependencies minimal and current
+
+## Testing Considerations
+- Test across major browsers
+- Verify mobile responsiveness
+- Check all filter combinations
+- Validate error handling
+- Test with various CrowdWork configurations
+- Verify performance with large event sets
