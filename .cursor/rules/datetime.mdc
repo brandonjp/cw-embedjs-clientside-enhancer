@@ -1,0 +1,110 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# DateTime Handling Standard
+
+## Purpose
+Ensure consistent and reliable datetime handling across the codebase, particularly for:
+- Current datetime retrieval
+- ISO format standardization
+- OS-aware operations
+- Validation checks
+
+## Usage
+
+### Getting Current DateTime
+```javascript
+// Standard ISO format
+const now = new Date().toISOString();
+
+// With timezone
+const nowTZ = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+```
+
+### Validation
+Always validate datetime values before using them:
+```javascript
+function isValidDate(dateString) {
+  const date = new Date(dateString);
+  return date instanceof Date && !isNaN(date);
+}
+```
+
+### OS Compatibility
+For OS-specific datetime operations:
+```javascript
+const os = require('os');
+const platform = os.platform();
+// Handle platform-specific datetime formatting
+```
+
+## Best Practices
+
+1. **Always Use ISO Format**
+   - Store dates in ISO format
+   - Convert to local format only for display
+   - Use `toISOString()` for standardization
+
+2. **Timezone Handling**
+   - Be explicit about timezone operations
+   - Use UTC for server operations
+   - Convert to local time for user display
+
+3. **Validation**
+   - Validate all date inputs
+   - Handle invalid dates gracefully
+   - Log validation failures for debugging
+
+4. **Performance**
+   - Cache datetime calculations when possible
+   - Use efficient comparison methods
+   - Consider using dedicated datetime libraries for complex operations
+
+## Examples
+
+### Current DateTime
+```javascript
+// Get current datetime in ISO format
+const currentDateTime = new Date().toISOString();
+
+// Get current date only
+const currentDate = new Date().toISOString().split('T')[0];
+
+// Get with specific timezone
+const options = { timeZone: 'America/New_York' };
+const nyDateTime = new Date().toLocaleString('en-US', options);
+```
+
+### Validation Example
+```javascript
+function validateDateTime(dateTimeString) {
+  try {
+    const date = new Date(dateTimeString);
+    if (isValidDate(date)) {
+      return date.toISOString();
+    }
+    throw new Error('Invalid datetime');
+  } catch (error) {
+    console.error(`DateTime validation failed: ${error.message}`);
+    return null;
+  }
+}
+```
+
+## Error Handling
+
+Always wrap datetime operations in try-catch blocks:
+```javascript
+try {
+  const date = new Date(userInput);
+  if (!isValidDate(date)) {
+    throw new Error('Invalid date format');
+  }
+  // Process valid date
+} catch (error) {
+  console.error('Date processing error:', error);
+  // Handle error appropriately
+}
+```

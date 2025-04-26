@@ -1,0 +1,10 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+/run_command_set[datetime]
+    |os(darwin 23.6.0)
+    |format(ISO)
+    |check()
+    |run()

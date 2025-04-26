@@ -1,0 +1,10 @@
+---
+description: anytime the date or time is needed
+globs:
+alwaysApply: false
+---
+/run_command_get[datetime]
+    |os(darwin 23.6.0)
+    |format(ISO)
+    |check()
+    |run()

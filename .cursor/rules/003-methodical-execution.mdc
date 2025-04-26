@@ -1,0 +1,229 @@
+---
+description: ENSURE methodical execution and context preservation WHEN performing any operation TO maintain reliability and consistency
+globs: **/*
+alwaysApply: false
+---
+
+<version>2.0.0</version>
+
+# Methodical Execution and Context Preservation
+
+## Context
+- Enforces systematic approach to all codebase operations
+- Prevents context loss and execution errors
+- Maintains state awareness throughout operations
+- Requires explicit validation at each step
+
+## Requirements
+
+### Pre-execution (CRITICAL)
+- CREATE scratchpad using template BEFORE any operation
+- VALIDATE initial context is complete:
+  ```
+  # INITIAL SCRATCHPAD
+  CONTEXT VALIDATION:
+  □ Files identified
+  □ Dependencies listed
+  □ Rules gathered
+  □ State documented
+  □ Goals clear
+  ```
+- DOCUMENT current context:
+  ```
+  CURRENT CONTEXT:
+  - Files: [SINGLE FILE]
+  - Purpose: [SINGLE GOAL]
+  - Dependencies: [LIST]
+  - Rules: [APPLICABLE]
+  - State: [CURRENT]
+  - Goals: [SPECIFIC]
+  ```
+- SAVE the INITIAL SCRATCHPAD and CURRENT CONTEXT as a SCRATCHPAD_FILE in markdown format with the appropriate title in .ai/scratchpad/
+- REFER and UPDATE the SCRATCHPAD_FILE as needed during the methodical execution
+
+### Execution Protocol
+- BREAK tasks into atomic operations
+- VALIDATE each step before proceeding:
+  ```
+  PLAN VALIDATION:
+  □ Single responsibility
+  □ Atomic steps
+  □ Clear boundaries
+  □ No scope creep
+  ```
+- TRACK changes continuously:
+  ```
+  TRACKING:
+  - Modified: [CURRENT]
+  - Pending: [NEXT]
+  - Verified: [DONE]
+  ```
+
+### Scope Control
+- ENFORCE single responsibility:
+  - ONE function/file/test at a time
+- DETECT scope violations:
+  - Multiple files/functions modified
+  - Mixed concerns in changes
+  - Dependent changes across components
+- PAUSE if scope expands
+- CREATE new operations for out-of-scope work
+
+### Documentation Standards
+- ADD file headers:
+  ```
+  """
+  @context: Purpose and scope
+  @dependencies: Direct dependencies
+  @invariants: Critical rules
+  @related_files: Related components
+  @last_modified: Date and reason
+  """
+  ```
+- ADD function documentation:
+  ```
+  """
+  @function: Clear purpose
+  @scope: Precise scope
+  @inputs: Expected parameters
+  @outputs: Return values
+  @invariants: Rules/constraints
+  @dependencies: Required functions
+  @raises: Expected exceptions
+  @modifies: State changes
+  @example: Usage example
+  """
+  ```
+
+### Task Completion Protocol
+- LOAD latest version of SCRATCHPAD_FILE
+- VERIFY completion status:
+  ```
+  # TASK COMPLETION VERIFICATION
+  COMPLETED SCRATCHPAD:
+  [Final state with all checkmarks]
+
+  VERIFICATION CHECKLIST:
+  □ All planned steps completed
+  □ All tests passing
+  □ All files properly modified
+  □ All fixtures captured
+  □ All documentation updated
+  □ All rules followed
+
+  COMPLETION EVIDENCE:
+  - Test Results: [OUTCOMES]
+  - Modified Files: [LIST]
+  - Fixtures: [UPDATES]
+  - Documentation: [CHANGES]
+  ```
+
+### Task Handoff Protocol
+- PREPARE next task context:
+  ```
+  # NEXT TASK HANDOFF
+  CONTEXT VALIDATION:
+  □ Files to modify
+  □ Dependencies needed
+  □ Rules to apply
+  □ Current state
+  □ Goals defined
+
+  CURRENT CONTEXT (reload from .ai/scratchpad/ if n):
+  - Files: [TARGET FILES]
+  - Purpose: [NEXT TASK]
+  - Dependencies: [REQUIRED]
+  - Rules: [APPLICABLE]
+  - State: [STARTING POINT]
+  - Goals: [OBJECTIVES]
+
+  IMPLEMENTATION PLAN:
+  1. [STEP 1]
+     □ Validation
+     □ Scope
+  ```
+
+## Examples
+
+<example>
+### Good Implementation
+```
+# INITIAL SCRATCHPAD
+CONTEXT VALIDATION:
+□ Files identified ✓
+□ Dependencies listed ✓
+□ Rules gathered ✓
+□ State documented ✓
+□ Goals clear ✓
+
+CURRENT CONTEXT:
+- Files: auth/login.py
+- Purpose: Add OAuth validation
+- Dependencies: [oauth_lib v2.1]
+- Rules: [auth-security]
+- State: Pre-implementation
+- Goals: Add token validation
+
+PLAN VALIDATION:
+□ Single responsibility ✓
+□ Atomic steps ✓
+□ Clear boundaries ✓
+□ No scope creep ✓
+
+CHANGE PLAN:
+1. Add validation method
+   □ Validation: Security
+   □ Scope: Single method
+
+TRACKING:
+- Modified: None (start)
+- Pending: Validation method
+- Verified: Context complete
+
+# TASK COMPLETION
+VERIFICATION CHECKLIST:
+□ All steps completed ✓
+□ Tests passing ✓
+□ Files modified ✓
+□ Documentation updated ✓
+
+COMPLETION EVIDENCE:
+- Tests: All passing
+- Modified: auth/login.py
+- Fixtures: Updated OAuth fixtures
+```
+</example>
+
+<example type="invalid">
+### Poor Implementation
+```
+PLAN:
+- Add OAuth system
+- Update multiple files
+- Fix related bugs
+- Add new features
+
+CHANGES:
+- Modifying auth files
+- Adding validation
+- Updating tests
+```
+Issues:
+- No scratchpad
+- Multiple concerns
+- Unclear boundaries
+- No validation
+- Scope too broad
+- No completion verification
+</example>
+
+## Validation Requirements
+□ Scratchpad created BEFORE planning
+□ Context fully documented
+□ Single responsibility maintained
+□ Atomic steps defined
+□ Changes tracked
+□ Documentation complete
+□ Scope controlled
+□ Completion verified
+□ Handoff prepared

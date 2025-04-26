@@ -1,5 +1,5 @@
 ---
-description:
+description: version bumping and source control commits
 globs:
 alwaysApply: false
 ---
