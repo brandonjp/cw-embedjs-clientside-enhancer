@@ -1,5 +1,5 @@
 /**
- * CrowdWork Event Display Embed Script Enhancer v2.1.7
+ * CrowdWork Event Display Embed Script Enhancer v2.2.0
  * 
  * This script enhances the original embed.js with advanced filtering capabilities
  * without modifying the original script. It adds client-side filtering and display options
