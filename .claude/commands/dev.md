@@ -1,41 +1,127 @@
-# Development Workflow Guide
+# /dev - CrowdWork Event Display Enhancer Development Workflow
 
-This document provides comprehensive guidance for developers (human or AI) working on the CrowdWork Event Display Enhancer project.
-
----
-
-## Project Overview
-
-**CrowdWork Event Display Enhancer** is a client-side JavaScript enhancement script that adds advanced filtering capabilities to CrowdWork's event display embed system.
-
-- **Language:** Vanilla JavaScript (ES6+)
-- **Build System:** None (plain JS files served directly)
-- **Dependencies:** None for the main script; Bootstrap 5.2.3 for the configurator UI
-- **Current Version:** 2.2.0
-- **Hosting:** GitHub Pages (brandonjp.github.io)
+> A vanilla JavaScript enhancer adding client-side filtering capabilities to CrowdWork's event display embed system.
 
 ---
 
 ## Quick Start
 
-### Local Development
+**Clone & Setup:**
+```bash
+git clone https://github.com/brandonjp/cw-embedjs-clientside-enhancer.git
+cd cw-embedjs-clientside-enhancer
+```
 
-1. Clone the repository
-2. Open `configurator/index.html` in a browser to test the configurator
-3. Create a test HTML file with the embed code to test the enhancer script
-4. Use `npx eslint embed-enhancer.js` for code quality checks
+**Test Locally:**
+```bash
+# Open configurator in browser
+open configurator/index.html
+# Or create a test HTML file with the embed code
+```
 
-### Key Files
+**Lint/Check Code:**
+```bash
+npx eslint embed-enhancer.js
+```
 
-| File | Description |
-|------|-------------|
-| `embed-enhancer.js` | Main enhancer script (~64KB) - the core deliverable |
-| `configurator/index.html` | Visual configuration tool for generating embed code |
-| `embed-orig.js` | Reference copy of original CrowdWork script (do not modify) |
-| `README.md` | User-facing documentation |
-| `CHANGELOG.md` | Version history |
-| `LAUNCH_READINESS.md` | Production launch checklist |
-| `CLAUDE.md` | AI assistant coding instructions |
+**No build process required** - vanilla JS served directly.
+
+---
+
+## Project Overview
+
+**Type:** Client-side JavaScript library (embed enhancer)
+**Stack:** Vanilla JavaScript (ES6+), no runtime dependencies
+**Version:** 2.2.0 (Semantic Versioning)
+**Package Manager:** npm (dev tools only - eslint)
+**Deployment:** GitHub Pages (brandonjp.github.io)
+
+### Project Structure
+
+```
+cw-embedjs-clientside-enhancer/
+├── embed-enhancer.js          # Main enhancer script (the deliverable)
+├── embed-orig.js              # Reference copy of CrowdWork script (read-only)
+├── configurator/
+│   └── index.html             # Visual configuration tool
+├── docs/
+│   ├── ORIGINAL_REQUIREMENTS.md  # Original project requirements
+│   └── ROADMAP.md             # Development roadmap & phases
+├── .claude/
+│   └── commands/
+│       ├── dev.md             # This file
+│       ├── setup-dev-guide.md # Workflow setup prompt
+│       └── audit.md           # Audit command
+├── .cursor/
+│   └── rules/                 # Cursor IDE rules
+├── CLAUDE.md                  # AI coding instructions
+├── README.md                  # User documentation
+├── CHANGELOG.md               # Version history
+├── LAUNCH_READINESS.md        # Production deployment checklist
+├── LICENSE                    # MIT License
+└── .gitignore                 # Git ignore rules
+```
+
+### Key Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | AI assistant coding guidelines |
+| `.gitignore` | Git ignore patterns |
+| `.cursor/rules/*.mdc` | Cursor IDE configuration |
+
+---
+
+## Development Phases & Roadmap
+
+### Phase Status Legend
+- **Complete** - Work finished and released
+- **In Progress** - Currently being worked on
+- **Planned** - Scheduled for future development
+- **Future** - Under consideration
+
+### Current Focus: Phase 3.0 - Production Hardening
+
+Preparing for first client deployment by addressing code quality issues and completing launch readiness testing.
+
+### Phase History
+
+| Phase | Status | Version | Description |
+|-------|--------|---------|-------------|
+| 1.0 - Foundation | Complete | 2.0.0 | Core filtering functionality, modular architecture |
+| 2.0 - Feature Complete | Complete | 2.1.7 | All filter types, configurator tool, JavaScript API |
+| 2.5 - Launch Prep | Complete | 2.2.0 | Launch readiness documentation, checklist |
+| 3.0 - Production Hardening | In Progress | 2.3.0 | Code cleanup, memory leak fixes, first client |
+| 4.0 - Client Feedback | Planned | 2.4.0 | Enhancements based on production usage |
+
+**Full details:** See `docs/ROADMAP.md`
+
+---
+
+## What to Work On
+
+### Priority Order (Phase 3.0)
+
+1. **Address Code Review Notes** (High)
+   - Make debug console.log conditional on development mode
+   - Disconnect MutationObserver on page unload (memory leak)
+   - Consider network timeout/retry logic for API calls
+
+2. **Complete Launch Readiness Testing** (High)
+   - Work through `LAUNCH_READINESS.md` Phase 1-2 checklists
+   - Browser compatibility testing
+   - Edge case validation
+
+3. **First Client Deployment** (Medium)
+   - Deploy to production client
+   - Monitor for issues
+   - Gather feedback
+
+### Quick Links
+
+- See `docs/ROADMAP.md` for detailed phases
+- See `CHANGELOG.md` for version history
+- See `LAUNCH_READINESS.md` for deployment checklist
 
 ---
 
@@ -43,110 +129,47 @@ This document provides comprehensive guidance for developers (human or AI) worki
 
 ### Code Style
 
-- Use modern ES6+ JavaScript
-- 2-space indentation
-- IIFE pattern for encapsulation
-- Clear, self-documenting variable names
-- Comprehensive JSDoc-style comments for public functions
-- Graceful degradation for older browsers
+- **Language:** Modern ES6+ JavaScript
+- **Indentation:** 2 spaces
+- **Pattern:** IIFE for encapsulation, avoid global namespace pollution
+- **Naming:** camelCase for variables and functions
+- **Comments:** JSDoc-style for public functions
+- **Browser Support:** Graceful degradation for older browsers
 
 ### Error Handling
 
 - Use try/catch blocks for all API calls
 - Provide helpful user-facing error messages
-- Log debug information only in development mode
+- Log debug information only when `data-development="true"`
 
-### Testing
+### Code Quality Checks
 
-1. **Manual Browser Testing:**
-   - Test in Chrome, Firefox, Safari, Edge (latest 2 versions)
-   - Test on mobile devices (iOS Safari, Chrome Android)
+```bash
+# Run ESLint
+npx eslint embed-enhancer.js
 
-2. **Functional Testing:**
-   - Calendar view: event display, navigation, filtering
-   - Card view: display, click actions, filtering
-   - Filter controls: all filter types, combinations
-   - URL parameters: all supported parameters
-   - JavaScript API: setFilter, resetFilters, applyQuickFilter, getFilterState
+# Check for common issues
+npx eslint embed-enhancer.js --fix
+```
 
-3. **Code Quality:**
-   ```bash
-   npx eslint embed-enhancer.js
-   ```
+### Testing Strategy
 
----
+**Manual Browser Testing:**
+| Browser | Desktop | Mobile |
+|---------|---------|--------|
+| Chrome (latest 2) | Required | Required |
+| Firefox (latest 2) | Required | Required |
+| Safari (latest 2) | Required | iOS Safari |
+| Edge (latest 2) | Required | - |
 
-## Version Management
+**Functional Testing Checklist:**
+1. Calendar view: event display, navigation, filtering
+2. Card view: display, click actions, filtering
+3. Filter controls: all filter types, combinations
+4. URL parameters: all supported parameters
+5. JavaScript API: setFilter, resetFilters, applyQuickFilter, getFilterState
 
-### Version Locations (Keep Synchronized)
-
-When updating the version, update ALL of these locations:
-
-1. `embed-enhancer.js` - Header comment (line 2)
-2. `configurator/index.html` - Version display (search for "Version v")
-3. `README.md` - Version badge and recent updates section
-4. `CHANGELOG.md` - Add new version entry at top
-5. `.cursor/rules/project-structure.mdc` - Version reference
-
-### Versioning Strategy
-
-Follow semantic versioning (MAJOR.MINOR.PATCH):
-- **MAJOR (x.0.0):** Breaking changes
-- **MINOR (0.x.0):** New features, backward compatible
-- **PATCH (0.0.x):** Bug fixes, documentation updates
-
-### Version Bump Checklist
-
-1. Update version in all locations listed above
-2. Add CHANGELOG.md entry with date and description
-3. Update README.md "Recent Updates" section if significant
-4. Commit with message: `Version X.Y.Z: Brief description`
-5. Consider creating a git tag: `git tag -a vX.Y.Z -m "Version X.Y.Z"`
-
----
-
-## Common Development Tasks
-
-### Adding a New Filter Option
-
-1. Add data attribute parsing in `embed-enhancer.js` (look for `parseConfig()`)
-2. Add filter logic in the appropriate filter function
-3. Update URL parameter support if needed
-4. Add to configurator UI in `configurator/index.html`
-5. Update README.md Configuration Options table
-6. Add tests for the new filter
-7. Update CHANGELOG.md
-
-### Fixing a Bug
-
-1. Reproduce the issue
-2. Identify the root cause in the code
-3. Implement the fix
-4. Test the fix across browsers
-5. Update CHANGELOG.md with bug fix entry
-6. Consider if version bump is needed
-
-### Updating Documentation
-
-1. Make changes to relevant markdown files
-2. Verify all links work
-3. Update CHANGELOG.md if significant documentation change
-4. Keep version numbers synchronized
-
----
-
-## Launch Readiness
-
-Before deploying to a new client, review `LAUNCH_READINESS.md` which contains:
-
-- Phase 1: Critical pre-launch requirements
-- Phase 2: Edge cases and reliability testing
-- Phase 3: Documentation and client support
-- Phase 4: Production deployment checklist
-- Phase 5: Post-launch monitoring
-
-### Minimum Test Scenarios (30 minutes)
-
+**Quick Test (30 minutes):**
 1. Basic display with default settings
 2. Tag filtering with `data-include-tags`
 3. Date filtering with `data-special-filter`
@@ -154,33 +177,181 @@ Before deploying to a new client, review `LAUNCH_READINESS.md` which contains:
 5. URL parameter filtering
 6. Mobile device testing
 
+### Version Management
+
+**Strategy:** Semantic Versioning (MAJOR.MINOR.PATCH)
+- **MAJOR:** Breaking changes
+- **MINOR:** New features, backward compatible
+- **PATCH:** Bug fixes, documentation
+
+**Version Locations (Keep Synchronized):**
+1. `embed-enhancer.js` - Header comment (line 2)
+2. `configurator/index.html` - Version display text
+3. `README.md` - Version badge and "Recent Updates" section
+4. `CHANGELOG.md` - New version entry at top
+5. `.cursor/rules/project-structure.mdc` - Version reference
+
+**Bump version when:**
+- Any code change to `embed-enhancer.js`
+- Significant configurator changes
+- Bug fixes (patch)
+- New features (minor)
+
+### Git Workflow
+
+**Commit Format:** Conventional commits
+```
+type: Brief description
+
+Detailed description if needed.
+```
+
+**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+**Examples:**
+- `feat: Add date offset filtering option`
+- `fix: Resolve calendar view flickering on filter change`
+- `docs: Update README with new configuration options`
+
+**Before Committing:**
+- [ ] ESLint passes
+- [ ] Manual testing completed
+- [ ] Version bumped (if code changed)
+- [ ] CHANGELOG updated
+- [ ] Documentation updated
+
+---
+
+## Key Files & Directories
+
+| Path | Purpose | When to Modify |
+|------|---------|----------------|
+| `embed-enhancer.js` | Main script (~64KB) | Any feature/fix work |
+| `configurator/index.html` | Visual config tool | UI changes, new options |
+| `README.md` | User documentation | New features, usage changes |
+| `CHANGELOG.md` | Version history | Every release |
+| `docs/ROADMAP.md` | Development phases | Phase transitions |
+| `LAUNCH_READINESS.md` | Deploy checklist | Pre-launch verification |
+| `CLAUDE.md` | AI instructions | Coding standard changes |
+
+---
+
+## Development Workflow Steps
+
+### Starting a Work Session
+
+1. **Review current state:**
+   ```bash
+   # Check current version
+   head -5 embed-enhancer.js
+
+   # Review CHANGELOG for recent work
+   head -50 CHANGELOG.md
+   ```
+
+2. **Check priorities:**
+   - Review `docs/ROADMAP.md` for current phase
+   - Check `LAUNCH_READINESS.md` for pending items
+   - Look at "What to Work On" section above
+
+3. **Choose work item:**
+   - Follow priority order above
+   - Or specify: "work on phase 3.0"
+   - Or: "work on the highest priority item"
+
+### During Development
+
+1. **Make changes following standards above**
+2. **Test frequently:** Open configurator, test with real theatre
+3. **Lint code:** `npx eslint embed-enhancer.js`
+4. **Test in multiple browsers**
+5. **Update documentation in same commit**
+
+### Completing Work
+
+1. **Verify testing complete**
+2. **Update version number** (all locations)
+3. **Update CHANGELOG.md**
+4. **Update ROADMAP.md** (if phase milestone)
+5. **Commit with descriptive message**
+6. **Summarize what was done and suggest next steps**
+
+---
+
+## Common Tasks
+
+### Adding a New Filter Option
+
+1. **Add data attribute parsing** in `getOriginalScriptConfig()` (~line 409)
+2. **Add filter state property** in `filterState` object (~line 42)
+3. **Initialize from config** in `initializeFilterState()` (~line 438)
+4. **Add filtering logic** in `applyFilters()` (~line 775)
+5. **Add URL parameter support** in `initializeFromURLParams()` (~line 470)
+6. **Update configurator UI** in `configurator/index.html`
+7. **Update README** Configuration Options table
+8. **Add to CHANGELOG** under Unreleased
+9. **Bump minor version**
+
+### Fixing a Bug
+
+1. **Reproduce the issue** (note browser, configuration)
+2. **Identify root cause** in the code
+3. **Implement the fix**
+4. **Test across browsers**
+5. **Update CHANGELOG** under Fixed
+6. **Bump patch version**
+
+### Updating Documentation
+
+1. Make changes to relevant markdown files
+2. Verify all links work
+3. Keep version numbers synchronized
+4. Update CHANGELOG if significant
+
 ---
 
 ## Architecture Overview
 
 ```
 embed-enhancer.js
-├── Configuration Parsing
-│   └── parseConfig() - reads data-* attributes
-├── Event Caching
-│   └── cachedData - stores fetched events
-├── Filter State Management
+├── Constants & State
+│   ├── SCRIPT_ID, FILTER_PANEL_CLASS, etc.
+│   ├── cachedData - stores fetched events
 │   └── filterState - current filter settings
-├── Filtering Logic
-│   ├── filterByTags()
-│   ├── filterByDateRange()
-│   ├── filterByDaysOfWeek()
-│   └── applySpecialFilter()
+│
+├── Configuration
+│   ├── getOriginalScriptConfig() - reads data-* attributes
+│   ├── initializeFilterState() - set initial filters
+│   └── initializeFromURLParams() - URL parameter support
+│
+├── Data Fetching
+│   ├── getApiBaseUrl() - build API URL
+│   ├── fetchEvents() - API call
+│   └── processApiData() - normalize event data
+│
+├── Filtering
+│   ├── applyFilters() - main filter logic
+│   ├── initializeSpecialDateFilters() - special filter dates
+│   └── updateURLWithFilters() - sync URL state
+│
 ├── View Enhancement
-│   ├── enhanceCalendarView()
-│   └── enhanceCardView()
+│   ├── enhanceCalendarView() - FullCalendar integration
+│   ├── enhanceCardView() - card display
+│   └── createLoadingOverlay() - loading state
+│
 ├── UI Components
-│   ├── Filter Panel
-│   └── Filter Badges
-└── Public API (FWEnhancer)
-    ├── setFilter()
+│   ├── setupFilterUI() - filter panel
+│   ├── updateActiveFilterBadges() - active filter display
+│   └── addStyles() - inject CSS
+│
+├── Initialization
+│   ├── initEnhancer() - main entry point
+│   └── attemptToFindEmbed() - DOM detection
+│
+└── Public API (window.FWEnhancer)
+    ├── setFilter(type, value)
     ├── resetFilters()
-    ├── applyQuickFilter()
+    ├── applyQuickFilter(name)
     └── getFilterState()
 ```
 
@@ -188,60 +359,88 @@ embed-enhancer.js
 
 ## Known Issues & Technical Debt
 
-From CHANGELOG v2.2.0 review notes:
-- [ ] Debug console.log statements should be conditional on development mode
-- [ ] MutationObserver should be disconnected on page unload (memory leak prevention)
-- [ ] Consider adding network timeout/retry logic for API calls
+**From Code Review (v2.2.0):**
+
+| Issue | Priority | Impact |
+|-------|----------|--------|
+| Debug console.log not conditional | Medium | Clutters production console |
+| MutationObserver not disconnected | Medium | Potential memory leak on SPA |
+| No network timeout/retry | Low | API calls can hang |
+
+**Known Limitations:**
+
+1. **Calendar Filtering:** Hides events visually but doesn't update FullCalendar's internal store. Month navigation may briefly show all events.
+
+2. **Tag Matching:** Case-sensitive. "Comedy" and "comedy" are different.
+
+3. **URL Parameters Override Attributes:** By design for link sharing.
+
+4. **Combined View Performance:** Two API calls required.
+
+5. **Multiple Embeds:** Not thoroughly tested.
 
 ---
 
-## Continuing Development
+## Troubleshooting
 
-### Current Status
+### Common Issues
 
-Version 2.2.0 is the "Launch Readiness Release" with comprehensive documentation for first client deployment.
+**Embed not loading:**
+- Check browser console for errors
+- Verify `data-theatre` attribute is correct
+- Ensure original CrowdWork script loads first
 
-### Next Steps (Suggested Priorities)
+**Filters not working:**
+- Check console for filter state logs
+- Verify data attribute syntax (comma-separated, no spaces)
+- Test with development mode: `data-development="true"`
 
-1. **Address Code Review Notes** - Clean up debug logging, fix memory leak potential
-2. **Complete Launch Readiness Testing** - Work through LAUNCH_READINESS.md checklist
-3. **Client Deployment** - Deploy to first client and gather feedback
-4. **Feature Enhancements** - Based on client feedback
+**Loading spinner stuck:**
+- Safety timeout (5s) should remove it
+- Check if API endpoint is accessible
+- Review console for fetch errors
 
-### How to Resume Work
-
-To continue development in a new session:
-
-```
-"Continue development on the CrowdWork Event Display Enhancer.
-Current version is 2.2.0. Check LAUNCH_READINESS.md for pending items
-and CHANGELOG.md for recent history."
-```
+**Calendar events flickering:**
+- Known limitation - FullCalendar internal state
+- Events re-filter on each navigation
 
 ---
 
-## Resources
+## Resources & References
 
-- **GitHub Repository:** https://github.com/brandonjp/cw-embedjs-clientside-enhancer
+- **Repository:** https://github.com/brandonjp/cw-embedjs-clientside-enhancer
 - **Live Configurator:** https://brandonjp.github.io/cw-embedjs-clientside-enhancer/configurator
 - **Hosted Script:** https://brandonjp.github.io/cw-embedjs-clientside-enhancer/embed-enhancer.js
+- **FullCalendar Docs:** https://fullcalendar.io/docs (for calendar view understanding)
 
 ---
 
-## Commit Message Format
+## How to Continue Development
 
-Follow conventional commit format:
+### Resume Work Examples
+
 ```
-Type: Brief description
-
-Detailed description if needed.
-
-https://claude.ai/code/session_ID
+"Follow the dev guide and continue current phase"
+"Follow the dev guide and work on phase 3.0"
+"Follow the dev guide and address the console.log code review note"
+"Follow the dev guide and complete the launch readiness checklist"
 ```
 
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+### Quick Status Check
 
-Examples:
-- `feat: Add date offset filtering option`
-- `fix: Resolve calendar view flickering on filter change`
-- `docs: Update README with new configuration options`
+```bash
+# Current version
+grep "v2" embed-enhancer.js | head -1
+
+# Recent changes
+head -30 CHANGELOG.md
+
+# Current phase
+head -30 docs/ROADMAP.md
+```
+
+---
+
+*Last Updated: 2026-01-21*
+*Version: 2.2.0*
+*Phase: 3.0 - Production Hardening (In Progress)*

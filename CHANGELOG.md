@@ -1,6 +1,28 @@
 # Changelog
 
-## Version 2.2.0 (2026-01-21) - Launch Readiness Release
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased] - Phase 3.0 Production Hardening
+
+### Added
+- Comprehensive development workflow guide (`.claude/commands/dev.md`)
+- Development guide setup prompt (`.claude/commands/setup-dev-guide.md`)
+- Phase-based roadmap (`docs/ROADMAP.md`) with version history
+- (Planned) Network timeout/retry logic for API calls
+
+### Changed
+- Updated CHANGELOG to follow Keep a Changelog format
+- (Planned) Make console.log conditional on development mode
+
+### Fixed
+- (Planned) Disconnect MutationObserver on page unload to prevent memory leaks
+
+---
+
+## [2.2.0] - 2026-01-21 - Launch Readiness Release
 
 ### Launch Preparation
 - Added comprehensive `LAUNCH_READINESS.md` checklist for first client deployment

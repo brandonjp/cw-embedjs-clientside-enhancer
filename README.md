@@ -353,9 +353,12 @@ cw-embedjs-clientside-enhancer/
 ├── configurator/
 │   └── index.html         # Visual configurator tool
 ├── docs/
-│   └── ORIGINAL_REQUIREMENTS.md  # Original project requirements
+│   ├── ORIGINAL_REQUIREMENTS.md  # Original project requirements
+│   └── ROADMAP.md         # Development roadmap and phases
 ├── .claude/
-│   └── commands/          # Claude Code command prompts
+│   └── commands/
+│       ├── dev.md         # Development workflow guide
+│       └── setup-dev-guide.md  # Workflow setup prompt
 ├── .cursor/
 │   └── rules/             # Cursor IDE rules
 ├── README.md              # This documentation
@@ -408,6 +411,15 @@ The code uses ES6+ features with graceful degradation where possible.
 ---
 
 ## Development
+
+For comprehensive development documentation, see [`.claude/commands/dev.md`](.claude/commands/dev.md) which includes:
+- Full project architecture
+- Development workflow steps
+- Code standards and conventions
+- Version management procedures
+- Troubleshooting guide
+
+For the development roadmap and phases, see [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ### Running Locally
 
