@@ -11,7 +11,7 @@ This is a client-side enhancement script for CrowdWork's event display embed sys
    - Provides advanced filtering capabilities
    - Adds client-side filtering and display options
    - Works with both calendar and card views
-   - Current version: v2.1.7
+   - Current version: v2.2.0
 
 2. The configurator tool: [configurator/index.html](mdc:configurator/index.html)
    - Web-based configuration interface

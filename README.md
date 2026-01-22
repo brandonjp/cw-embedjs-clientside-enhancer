@@ -1,6 +1,7 @@
 # CrowdWork Event Display Enhancer
 
 [![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)](https://github.com/brandonjp/cw-embedjs-clientside-enhancer)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Try the Configurator](https://img.shields.io/badge/Try%20the%20Configurator-blue?style=for-the-badge)](https://brandonjp.github.io/cw-embedjs-clientside-enhancer/configurator)
 
 A JavaScript enhancer that adds advanced client-side filtering capabilities to CrowdWork's event display embed script. Filter events by tags, dates, days of the week, and more—all without modifying the original embed or data source.
@@ -351,10 +352,17 @@ cw-embedjs-clientside-enhancer/
 ├── embed-orig.js          # Original embed script (reference only)
 ├── configurator/
 │   └── index.html         # Visual configurator tool
+├── docs/
+│   └── ORIGINAL_REQUIREMENTS.md  # Original project requirements
+├── .claude/
+│   └── commands/          # Claude Code command prompts
+├── .cursor/
+│   └── rules/             # Cursor IDE rules
 ├── README.md              # This documentation
 ├── CHANGELOG.md           # Version history and changes
 ├── LAUNCH_READINESS.md    # Production deployment checklist
-└── CLAUDE.md              # AI assistant instructions
+├── CLAUDE.md              # AI assistant instructions
+└── LICENSE                # MIT License
 ```
 
 ### File Descriptions
@@ -364,6 +372,7 @@ cw-embedjs-clientside-enhancer/
 | `embed-enhancer.js` | The main enhancer script (~64KB). Include this after the original CrowdWork embed script. |
 | `embed-orig.js` | A reference copy of the original CrowdWork embed script. **Do not use directly**—always load from CrowdWork's servers. |
 | `configurator/index.html` | A standalone HTML tool for configuring and previewing embed options. Hosted at GitHub Pages. |
+| `LAUNCH_READINESS.md` | Comprehensive checklist for production deployment and client onboarding. |
 
 ---
 
@@ -463,9 +472,9 @@ Contributions are welcome! Please:
 
 ## License
 
-This project is provided as-is for testing and educational purposes. It is **not an official CrowdWork product**.
+This project is licensed under the [MIT License](LICENSE).
 
-Use at your own risk. The enhanced script may cause increased API usage and load times on CrowdWork's servers.
+**Disclaimer:** This is an unofficial, community-created tool. It is **not affiliated with, endorsed by, or connected to CrowdWork** in any way. Use at your own risk. The enhanced script may cause increased API usage and load times on CrowdWork's servers.
 
 ---
 
